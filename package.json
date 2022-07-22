@@ -1,0 +1,24 @@
+{
+  "name": "todo",
+  "version": "1.0.0",
+  "description": "A todo App consumption jsonplaceholder.typicode.com API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hamed-farag/todo.git"
+  },
+  "keywords": [
+    "todo",
+    "task",
+    "app"
+  ],
+  "author": "hamed-farag",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hamed-farag/todo/issues"
+  },
+  "homepage": "https://github.com/hamed-farag/todo#readme"
+}
