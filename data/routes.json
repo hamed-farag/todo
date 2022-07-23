@@ -1,5 +1,6 @@
 {
   "/api/": "/",
   "/api/users/": "/users/",
-  "/api/todos/": "/todos/"
+  "/api/todos/": "/todos/",
+  "/api/todos\\?userId=:id": "/todos?userId=:id"
 }
