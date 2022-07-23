@@ -20,7 +20,9 @@ function Dropdown(props: DropDownProps) {
         <select value={value} onChange={(e) => onChange(e.target.value !== "" ? e.target.value : null)}>
           <option value="">{defaultLabel}</option>
           {items.map((item) => (
-            <option value={item.value}>{item.label}</option>
+            <option key={item.label} value={item.value}>
+              {item.label}
+            </option>
           ))}
         </select>
       </label>
