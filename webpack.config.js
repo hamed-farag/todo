@@ -1,5 +1,14 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const Dotenv = require("dotenv-webpack");
+
+function getCurrentEnv() {
+  if (process.env.NODE_ENV === "development") {
+    return "./.env";
+  }
+
+  return "./.env.production";
+}
 
 module.exports = {
   entry: path.join(__dirname, "src", "index.tsx"),
@@ -8,6 +17,13 @@ module.exports = {
   resolve: {
     modules: [path.resolve(__dirname, "src"), "node_modules"],
     extensions: [".js", ".jsx", ".tsx", ".ts"],
+    alias: {
+      "@helpers": path.join(__dirname, "src/helpers"),
+      "@configs": path.join(__dirname, "src/configs"),
+      "@interfaces": path.join(__dirname, "src/interfaces"),
+      "@services": path.join(__dirname, "src/services"),
+      "@components": path.join(__dirname, "src/components"),
+    },
   },
   module: {
     rules: [
@@ -43,6 +59,9 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "public", "index.html"),
+    }),
+    new Dotenv({
+      path: getCurrentEnv(),
     }),
   ],
 };
