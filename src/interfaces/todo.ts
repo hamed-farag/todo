@@ -3,5 +3,4 @@ export default interface TodoInterface {
   userId: number;
   title: string;
   completed: boolean;
-  completedAt?: Date;
 }

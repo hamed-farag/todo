@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import Paginator from "@components/UI/Paginator";
+import TodoCard from "@components/Business/TodoCard";
 
 import env from "@configs/env";
 
@@ -46,7 +47,7 @@ function TodoListing(props: TodoListingProps) {
 
   const renderTodo = () => {
     const todoExtraction = todo.map((item: TodoInterface) => {
-      return <div>{item.title}</div>;
+      return <TodoCard key={item.id} data={item} onUpdate={() => {}} onDelete={() => {}} />;
     });
 
     return todoExtraction;
