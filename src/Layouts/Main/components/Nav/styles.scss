@@ -1,0 +1,13 @@
+.wk-main-layout-nav {
+  ul {
+    list-style: none;
+    display: flex;
+    li a {
+      display: inline-block;
+      margin: 0 0.5rem;
+      padding: 1rem;
+      background-color: yellow;
+      text-decoration: none;
+    }
+  }
+}

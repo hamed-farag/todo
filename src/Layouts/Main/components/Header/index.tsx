@@ -1,23 +1,12 @@
-import { Link } from "react-router-dom";
+import Nav from "../Nav";
 
 import "./styles.scss";
 
 function Header() {
   return (
     <div className="wk-main-layout-header">
-      <span>logo</span>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/history">About</Link>
-            </li>
-          </ul>
-        </nav>
-      </div>
+      <img className="wk-main-layout-header__logo" src="/assets/images/app-icon.png" alt="logo" />
+      <Nav />
     </div>
   );
 }
