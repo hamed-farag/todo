@@ -10,7 +10,7 @@ import UserInterface from "@interfaces/users";
 import logger from "@helpers/logger";
 
 interface UsersProps {
-  onChange: (value: string) => void;
+  onChange: (value: string | null) => void;
 }
 
 function Users(props: UsersProps) {
@@ -18,7 +18,7 @@ function Users(props: UsersProps) {
 
   const [users, setUsers] = useState<Array<UserInterface>>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedUser, setSelectedUser] = useState<string>("");
+  const [selectedUser, setSelectedUser] = useState<string | null>("");
 
   const getUsersData = async () => {
     const [response, error] = await services.getUsers();

@@ -4,19 +4,21 @@ import "./styles.scss";
 
 interface DropDownProps {
   defaultLabel: string;
-  selectedValue: string;
-  onChange: (value: string) => void;
+  selectedValue: string | null;
+  onChange: (value: string | null) => void;
   items: Array<{ value: string; label: string }>;
 }
 
 function Dropdown(props: DropDownProps) {
   const { onChange, items, defaultLabel, selectedValue } = props;
 
+  const value = selectedValue ?? "";
+
   return (
     <div>
       <label>
-        <select value={selectedValue} onChange={(e) => onChange(e.target.value)}>
-          <option value={undefined}>{defaultLabel}</option>
+        <select value={value} onChange={(e) => onChange(e.target.value !== "" ? e.target.value : null)}>
+          <option value="">{defaultLabel}</option>
           {items.map((item) => (
             <option value={item.value}>{item.label}</option>
           ))}
