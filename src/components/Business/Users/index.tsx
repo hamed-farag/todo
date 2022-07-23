@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 
 import Dropdown from "@components/UI/Dropdown";
 
-import services from "@services/users";
+import userService from "@services/users";
 
 import UserInterface from "@interfaces/users";
 
@@ -21,7 +21,7 @@ function Users(props: UsersProps) {
   const [selectedUser, setSelectedUser] = useState<string | null>("");
 
   const getUsersData = async () => {
-    const [response, error] = await services.getUsers();
+    const [response, error] = await userService.getUsers();
 
     if (response) {
       setUsers(response.data);
@@ -44,7 +44,7 @@ function Users(props: UsersProps) {
   }, [selectedUser]);
 
   const renderUsers = () => {
-    const usersExtraction = users.map((user) => {
+    const usersExtraction = users.map((user: UserInterface) => {
       return { value: user.id.toString(), label: user.name };
     });
 
