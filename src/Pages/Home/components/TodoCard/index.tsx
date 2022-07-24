@@ -6,7 +6,7 @@ import Textbox from "@components/UI/Textbox";
 import Icon from "@components/UI/Icon";
 import Label from "@components/UI/Label";
 
-import TodoInterface, { TodoUpdatedProps } from "@interfaces/todo";
+import TodoInterface, { TodoUpdatedProps, todoEnum } from "@interfaces/todo";
 
 import "./styles.scss";
 
@@ -26,7 +26,7 @@ function TodoCard(props: TodoCardProps) {
     setTodoTitle(data.title);
   }, [data.title]);
 
-  const handleUpdates = async (field: string, value: string) => {
+  const handleUpdates = async (field: keyof typeof todoEnum, value: any) => {
     const isUpdateSuccess = await onUpdate({ id: data.id, field, value });
     if (isUpdateSuccess) {
       setIsEditMode(false);
@@ -77,7 +77,7 @@ function TodoCard(props: TodoCardProps) {
   return (
     <div className="wk-todo-card">
       {/* mark as done */}
-      <Checkbox checked={data.completed} onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleUpdates("completed", e.target.value)} />
+      <Checkbox checked={data.completed} onChange={(value: boolean) => handleUpdates("completed", value)} />
       {/* todo content */}
       {renderTodoContent()}
       {/* remove */}

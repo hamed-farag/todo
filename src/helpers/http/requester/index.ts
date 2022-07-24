@@ -13,6 +13,7 @@ export type RequestConfig = {
 export interface IRequester {
   get<TResponse>(path: string): Promise<AxiosResponse<TResponse>>;
   delete<TResponse>(path: string): Promise<AxiosResponse<TResponse>>;
+  put<TRequest, TResponse>(path: string, object: TRequest): Promise<AxiosResponse<TResponse>>;
 }
 
 export class Requester implements IRequester {
@@ -35,11 +36,15 @@ export class Requester implements IRequester {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async get<TResponse>(path: string): Promise<AxiosResponse<TResponse, any>> {
+  get<TResponse>(path: string): Promise<AxiosResponse<TResponse, any>> {
     return this.client.get<TResponse>(path);
   }
 
-  async delete<TResponse>(path: string): Promise<AxiosResponse<TResponse, any>> {
+  delete<TResponse>(path: string): Promise<AxiosResponse<TResponse, any>> {
     return this.client.delete<TResponse>(path);
+  }
+
+  put<TRequest, TResponse>(path: string, payload: TRequest): Promise<AxiosResponse<TResponse, any>> {
+    return this.client.put<TResponse>(path, payload);
   }
 }

@@ -11,8 +11,8 @@
     "lint:prettier": "prettier --check \"src/**/*.*\"",
     "api": "json-server --watch ./data/db.json --port 2022 --routes ./data/routes.json --delay 500",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "storybook": "start-storybook -p 6006",
-    "build:storybook": "build-storybook -o docs/ui-guide"
+    "docs": "start-storybook -p 6006",
+    "build:docs": "build-storybook -o docs/ui-guide"
   },
   "repository": {
     "type": "git",

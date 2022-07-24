@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import UsersDropdown from "@components/Business/Users";
 import TodoListing from "./components/Listing";
 
-import { getTodoByUserId, deleteTodoItemById } from "./actions";
+import { getTodoByUserId, deleteTodoItemById, updateTodoItemById } from "./actions";
 
 import TodoInterface, { TodoUpdatedProps } from "@interfaces/todo";
 
@@ -38,7 +38,16 @@ function Home() {
   }, [selectedUserId, currentPage]);
 
   const handleUpdateTodoItem = async (item: TodoUpdatedProps) => {
-    return true;
+    const [data, _] = await updateTodoItemById(item, todo);
+
+    if (data) {
+      setTodo(data);
+      toast.success("Todo item Updated Successfully!");
+      return true;
+    } else {
+      toast.error("Cannot update Todo item!");
+      return false;
+    }
   };
 
   const handleDeleteTodoItem = async (id: number) => {

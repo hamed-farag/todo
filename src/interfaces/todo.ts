@@ -5,8 +5,16 @@ export default interface TodoInterface {
   completed: boolean;
 }
 
+// just for use it as enum for typing purpose
+export const todoEnum: TodoInterface = {
+  id: 0,
+  userId: 0,
+  title: "",
+  completed: false,
+};
+
 export interface TodoUpdatedProps {
   id: number;
-  field: string;
-  value: string;
+  field: keyof typeof todoEnum;
+  value: any;
 }
