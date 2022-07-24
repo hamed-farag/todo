@@ -15,7 +15,11 @@ class Services {
   }
 
   public getTodoByUserId(userId: string, pageNumber: string, pageSize: string): Promise<[response: IAPIResponse, error: Error]> {
-    return asyncer(this.requester.get<Array<TodoInterface>>(servicesUrls.userTodos(userId, pageNumber, pageSize)));
+    return asyncer(this.requester.get<Array<TodoInterface>>(servicesUrls.userTodo(userId, pageNumber, pageSize)));
+  }
+
+  public deleteTodoItemById(id: string): Promise<[response: IAPIResponse, error: Error]> {
+    return asyncer(this.requester.delete<Array<TodoInterface>>(servicesUrls.deleteTodo(id)));
   }
 }
 

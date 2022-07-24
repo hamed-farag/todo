@@ -4,3 +4,9 @@ export default interface TodoInterface {
   title: string;
   completed: boolean;
 }
+
+export interface TodoUpdatedProps {
+  id: number;
+  field: string;
+  value: string;
+}

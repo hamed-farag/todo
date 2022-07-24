@@ -1,22 +1,38 @@
 import Paginator from "@components/UI/Paginator";
 import TodoCard from "../TodoCard";
 
-import TodoInterface from "@interfaces/todo";
+import TodoInterface, { TodoUpdatedProps } from "@interfaces/todo";
 
 interface TodoListingProps {
   isLoading: boolean;
   todoItems: Array<TodoInterface>;
   totalCount: number;
   pageSize: number;
-  getCurrentPage: (value: number) => void;
+  actions: {
+    getCurrentPage: (value: number) => void;
+    onItemUpdate: (updatedItem: TodoUpdatedProps) => Promise<boolean>;
+    onItemDelete: (id: number) => Promise<boolean>;
+  };
 }
 
 function TodoListing(props: TodoListingProps) {
-  const { isLoading, todoItems, totalCount, pageSize, getCurrentPage } = props;
+  const { isLoading, todoItems, totalCount, pageSize, actions } = props;
+  const { getCurrentPage, onItemDelete, onItemUpdate } = actions;
 
   const renderTodo = () => {
     const todoExtraction = todoItems.map((item: TodoInterface) => {
-      return <TodoCard key={item.id} data={item} onUpdate={() => {}} onDelete={() => {}} />;
+      return (
+        <TodoCard
+          key={item.id}
+          data={item}
+          onUpdate={(updatedItem) => {
+            return onItemUpdate(updatedItem);
+          }}
+          onDelete={(id) => {
+            return onItemDelete(id);
+          }}
+        />
+      );
     });
 
     return todoExtraction;

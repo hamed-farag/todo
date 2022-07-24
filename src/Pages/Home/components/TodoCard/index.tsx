@@ -6,20 +6,14 @@ import Textbox from "@components/UI/Textbox";
 import Icon from "@components/UI/Icon";
 import Label from "@components/UI/Label";
 
-import TodoInterface from "@interfaces/todo";
+import TodoInterface, { TodoUpdatedProps } from "@interfaces/todo";
 
 import "./styles.scss";
 
-interface TodoUpdatedProps {
-  id: number;
-  field: string;
-  value: string;
-}
-
 interface TodoCardProps {
   data: TodoInterface;
-  onUpdate: (updatedItem: TodoUpdatedProps) => void;
-  onDelete: (id: number) => void;
+  onUpdate: (updatedItem: TodoUpdatedProps) => Promise<boolean>;
+  onDelete: (id: number) => Promise<boolean>;
 }
 
 function TodoCard(props: TodoCardProps) {
@@ -32,13 +26,22 @@ function TodoCard(props: TodoCardProps) {
     setTodoTitle(data.title);
   }, [data.title]);
 
-  const handleUpdates = (field: string, value: string) => {
-    onUpdate({ id: data.id, field, value });
+  const handleUpdates = async (field: string, value: string) => {
+    const isUpdateSuccess = await onUpdate({ id: data.id, field, value });
+    if (isUpdateSuccess) {
+      setIsEditMode(false);
+    }
   };
 
   const handleCancelUpdates = () => {
     setTodoTitle(data.title);
     setIsEditMode(false);
+  };
+
+  const handleDelete = async () => {
+    const isDeleteSuccess = await onDelete(data.id);
+    if (isDeleteSuccess) {
+    }
   };
 
   const renderTodoContent = () => {
@@ -82,7 +85,7 @@ function TodoCard(props: TodoCardProps) {
         name="delete-todo-item"
         value={<Icon name="times" />}
         onClick={() => {
-          onDelete(data.id);
+          handleDelete();
         }}
       />
     </div>

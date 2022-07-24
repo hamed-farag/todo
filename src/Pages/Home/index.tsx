@@ -4,11 +4,9 @@ import { toast } from "react-toastify";
 import UsersDropdown from "@components/Business/Users";
 import TodoListing from "./components/Listing";
 
-import todoService from "@services/todo";
+import { getTodoByUserId, deleteTodoItemById } from "./actions";
 
-import TodoInterface from "@interfaces/todo";
-
-import logger from "@helpers/logger";
+import TodoInterface, { TodoUpdatedProps } from "@interfaces/todo";
 
 import env from "@configs/env";
 
@@ -19,15 +17,14 @@ function Home() {
   const [totalCount, setTotalCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const getTodoData = async (userId: string, pageNumber: string) => {
-    const [response, error] = await todoService.getTodoByUserId(userId, pageNumber, env.pageSize.toString());
+  const getTodoData = async (userId: string, pageNumber: number) => {
+    const [data, _] = await getTodoByUserId(userId, pageNumber, env.pageSize);
 
-    if (response) {
-      setTodo(response.data);
-      setTotalCount(Number(response.headers["x-total-count"]));
+    if (data) {
+      setTodo(data.collection);
+      setTotalCount(Number(data.totalCount));
     } else {
       toast.error("Cannot Fetch Todo for the selected User!");
-      logger.error("Something went Wrong, Cannot Fetch Todo!", error);
     }
 
     setIsLoading(false);
@@ -36,9 +33,26 @@ function Home() {
   useEffect(() => {
     if (selectedUserId) {
       setIsLoading(true);
-      getTodoData(selectedUserId, currentPage.toString());
+      getTodoData(selectedUserId, currentPage);
     }
   }, [selectedUserId, currentPage]);
+
+  const handleUpdateTodoItem = async (item: TodoUpdatedProps) => {
+    return true;
+  };
+
+  const handleDeleteTodoItem = async (id: number) => {
+    const [data, _] = await deleteTodoItemById(id, todo);
+
+    if (data) {
+      setTodo(data);
+      toast.success("Todo item Deleted Successfully!");
+      return true;
+    } else {
+      toast.error("Cannot delete Todo item!");
+      return false;
+    }
+  };
 
   return (
     <div>
@@ -49,8 +63,12 @@ function Home() {
         todoItems={todo}
         totalCount={totalCount}
         pageSize={env.pageSize}
-        getCurrentPage={(value) => {
-          setCurrentPage(value);
+        actions={{
+          getCurrentPage: (value) => {
+            setCurrentPage(value);
+          },
+          onItemUpdate: (item) => handleUpdateTodoItem(item),
+          onItemDelete: (id) => handleDeleteTodoItem(id),
         }}
       />
     </div>
