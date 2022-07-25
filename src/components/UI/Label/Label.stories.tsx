@@ -17,3 +17,21 @@ export const Text = Template.bind({});
 Text.args = {
   text: "Label",
 };
+
+export const Normal = Template.bind({});
+Normal.args = {
+  text: "Normal Label",
+  size: "normal",
+};
+
+export const Small = Template.bind({});
+Small.args = {
+  text: "Small Label",
+  size: "small",
+};
+
+export const Big = Template.bind({});
+Big.args = {
+  text: "Big Label",
+  size: "big",
+};
