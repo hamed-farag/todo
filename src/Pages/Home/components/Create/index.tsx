@@ -1,5 +1,4 @@
-import Button from "@components/UI/Button";
-import Icon from "@components//UI/Icon";
+import { FaPlusCircle } from "react-icons/fa";
 
 import { NewTodoInterface } from "@interfaces/todo";
 
@@ -14,13 +13,13 @@ function TodoCreate(props: TodoCreateInterface) {
   const { userId, onCreate } = props;
 
   return (
-    <Button
-      disabled={userId ? false : true}
-      value={<Icon name="plus" />}
-      name="add-todo"
+    <FaPlusCircle
+      cursor={"pointer"}
+      size="60"
       onClick={() => {
         onCreate({ id: generateRandomNumber(), title: "", completed: false, userId, isEditMode: true, isNew: true });
       }}
+      display={userId}
     />
   );
 }

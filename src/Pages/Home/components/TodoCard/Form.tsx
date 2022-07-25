@@ -1,5 +1,6 @@
 import Textbox from "@components/UI/Textbox";
-import Button from "@components/UI/Button";
+
+import { FaSave, FaTimesCircle } from "react-icons/fa";
 
 interface FormProps {
   value: string;
@@ -18,9 +19,9 @@ function Form(props: FormProps) {
   return (
     <div className="wk-todo-card__form">
       <Textbox value={value} placeholder={text.inputPlaceholder} onChange={onChange} />
-      <div>
-        <Button name={text.save} value={text.save} onClick={onSave} />
-        <Button name={text.cancel} value={text.cancel} onClick={onCancel} />
+      <div className="wk-todo-card__actions">
+        <FaSave cursor={"pointer"} onClick={onSave} size="20" />
+        <FaTimesCircle cursor={"pointer"} onClick={onCancel} size="20" />
       </div>
     </div>
   );

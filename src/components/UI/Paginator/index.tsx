@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import classNames from "classnames";
-
-import Icon from "../Icon";
+import { FaChevronCircleRight, FaChevronCircleLeft } from "react-icons/fa";
 
 import "./styles.scss";
 
@@ -59,7 +58,7 @@ function Paginator(props: PaginatorProps) {
           disabled === false && currentPage !== 1 && goToPreviousPage();
         }}
       >
-        <Icon name="left-arrow" size="normal" />
+        <FaChevronCircleLeft size="30" />
       </li>
 
       {getPageItems().map((item) => {
@@ -86,7 +85,7 @@ function Paginator(props: PaginatorProps) {
           disabled === false && currentPage !== pages && goToNextPage();
         }}
       >
-        <Icon name="right-arrow" size="normal" />
+        <FaChevronCircleRight size="30" />
       </li>
     </ul>
   );

@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
-
-import Button from "@components/UI/Button";
-import Checkbox from "@components/UI/Checkbox";
-import Icon from "@components/UI/Icon";
+import { FaCheckCircle, FaRegCircle, FaRegTrashAlt } from "react-icons/fa";
 
 import Form from "./Form";
 import View from "./View";
@@ -94,20 +91,29 @@ function TodoCard(props: TodoCardProps) {
     );
   };
 
+  const renderCheckbox = () => {
+    if (data.completed) {
+      return <FaCheckCircle size={"25"} cursor={"pointer"} onClick={() => handleUpdates("completed", false)} />;
+    }
+    return <FaRegCircle size={"25"} cursor={"pointer"} onClick={() => handleUpdates("completed", true)} />;
+  };
+
   return (
     <div className="wk-todo-card">
       {/* mark as done */}
-      <Checkbox checked={data.completed} onChange={(value: boolean) => handleUpdates("completed", value)} />
+      <div className="wk-todo-card__checkbox">{renderCheckbox()}</div>
       {/* todo content */}
       {renderTodoContent()}
       {/* remove */}
-      <Button
-        name="delete-todo-item"
-        value={<Icon name="times" />}
-        onClick={() => {
-          handleDelete();
-        }}
-      />
+      <div className="wk-todo-card__delete">
+        <FaRegTrashAlt
+          cursor={"pointer"}
+          size={"20"}
+          onClick={() => {
+            handleDelete();
+          }}
+        />
+      </div>
     </div>
   );
 }
