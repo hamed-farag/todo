@@ -6,21 +6,29 @@ import Textbox from "@components/UI/Textbox";
 import Icon from "@components/UI/Icon";
 import Label from "@components/UI/Label";
 
-import TodoInterface, { TodoUpdatedProps, todoEnum } from "@interfaces/todo";
+import TodoInterface, { TodoUpdatedProps, todoEnum, NewTodoInterface } from "@interfaces/todo";
 
 import "./styles.scss";
 
 interface TodoCardProps {
-  data: TodoInterface;
+  data: NewTodoInterface;
   onUpdate: (updatedItem: TodoUpdatedProps) => Promise<boolean>;
+  onCreate: (newItem: TodoInterface) => Promise<boolean>;
+  onCancel: (isNew: boolean) => void;
   onDelete: (id: number) => Promise<boolean>;
 }
 
 function TodoCard(props: TodoCardProps) {
-  const { data, onUpdate, onDelete } = props;
+  const { data, onUpdate, onDelete, onCreate, onCancel } = props;
 
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [todoTitle, setTodoTitle] = useState<string>("");
+
+  useEffect(() => {
+    if (data.isEditMode === true) {
+      setIsEditMode(true);
+    }
+  }, [data.isEditMode]);
 
   useEffect(() => {
     setTodoTitle(data.title);
@@ -33,14 +41,30 @@ function TodoCard(props: TodoCardProps) {
     }
   };
 
+  const handleCreate = async () => {
+    const isCreateSuccess = await onCreate({ ...data, title: todoTitle });
+    if (isCreateSuccess) {
+      setIsEditMode(false);
+    }
+  };
+
   const handleCancelUpdates = () => {
     setTodoTitle(data.title);
     setIsEditMode(false);
+    onCancel(data.isNew ? true : false);
   };
 
   const handleDelete = async () => {
     const isDeleteSuccess = await onDelete(data.id);
     if (isDeleteSuccess) {
+    }
+  };
+
+  const handleSaveClick = () => {
+    if (data.isNew) {
+      handleCreate();
+    } else {
+      handleUpdates("title", todoTitle);
     }
   };
 
@@ -56,7 +80,7 @@ function TodoCard(props: TodoCardProps) {
             }}
           />
           <div>
-            <Button name="Update" value="Update" onClick={() => handleUpdates("title", todoTitle)} />
+            <Button name="Update" value="Update" onClick={handleSaveClick} />
             <Button name="Cancel" value="Cancel" onClick={handleCancelUpdates} />
           </div>
         </div>

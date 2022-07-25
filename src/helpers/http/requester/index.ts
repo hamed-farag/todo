@@ -14,6 +14,7 @@ export interface IRequester {
   get<TResponse>(path: string): Promise<AxiosResponse<TResponse>>;
   delete<TResponse>(path: string): Promise<AxiosResponse<TResponse>>;
   put<TRequest, TResponse>(path: string, object: TRequest): Promise<AxiosResponse<TResponse>>;
+  post<TRequest, TResponse>(path: string, object: TRequest, config?: RequestConfig): Promise<AxiosResponse<TResponse>>;
 }
 
 export class Requester implements IRequester {
@@ -46,5 +47,9 @@ export class Requester implements IRequester {
 
   put<TRequest, TResponse>(path: string, payload: TRequest): Promise<AxiosResponse<TResponse, any>> {
     return this.client.put<TResponse>(path, payload);
+  }
+
+  async post<TRequest, TResponse>(path: string, payload: TRequest, config?: RequestConfig): Promise<AxiosResponse<TResponse, any>> {
+    return this.client.post<TResponse>(path, payload, config);
   }
 }

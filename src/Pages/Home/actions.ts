@@ -2,7 +2,7 @@ import produce from "immer";
 
 import todoService from "@services/todo";
 
-import TodoInterface, { TodoUpdatedProps } from "@interfaces/todo";
+import TodoInterface, { TodoUpdatedProps, NewTodoInterface } from "@interfaces/todo";
 
 import logger from "@helpers/logger";
 
@@ -83,4 +83,37 @@ export async function updateTodoItemById(
     logger.error("Something went Wrong, Cannot delete Todo item!", error);
     return [undefined, error];
   }
+}
+
+export async function createTodoItem(
+  userId: string,
+  item: NewTodoInterface,
+  state: Array<TodoInterface>
+): Promise<[response: Array<TodoInterface> | undefined, error: Error | undefined]> {
+  const newTodo = { ...item, userId: Number(userId) };
+  // remove unneeded flags before store it
+  delete newTodo.isEditMode;
+  delete newTodo.isNew;
+
+  const [response, error] = await todoService.createTodoItemById(newTodo);
+  if (response) {
+    const newState = produce(state, (draftState) => {
+      // update the item with response.data
+      // why [0] because we already insert (unshift) the new item in the begging of the array
+      draftState[0] = response.data;
+      return draftState;
+    });
+
+    return [newState, undefined];
+  } else {
+    logger.error("Something went Wrong, Cannot Create Todo item!", error);
+    return [undefined, error];
+  }
+}
+
+export function removeTempTodoItem(state: Array<TodoInterface>): Array<TodoInterface> {
+  return produce(state, (draftState) => {
+    draftState.shift();
+    return draftState;
+  });
 }

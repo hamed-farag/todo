@@ -5,6 +5,11 @@ export default interface TodoInterface {
   completed: boolean;
 }
 
+export interface NewTodoInterface extends TodoInterface {
+  isEditMode?: boolean;
+  isNew?: boolean;
+}
+
 // just for use it as enum for typing purpose
 export const todoEnum: TodoInterface = {
   id: 0,

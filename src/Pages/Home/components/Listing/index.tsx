@@ -12,12 +12,14 @@ interface TodoListingProps {
     getCurrentPage: (value: number) => void;
     onItemUpdate: (updatedItem: TodoUpdatedProps) => Promise<boolean>;
     onItemDelete: (id: number) => Promise<boolean>;
+    onItemCreate: (newItem: TodoInterface) => Promise<boolean>;
+    onItemCancel: (isNewItem: boolean) => void;
   };
 }
 
 function TodoListing(props: TodoListingProps) {
   const { isLoading, todoItems, totalCount, pageSize, actions } = props;
-  const { getCurrentPage, onItemDelete, onItemUpdate } = actions;
+  const { getCurrentPage, onItemDelete, onItemUpdate, onItemCreate, onItemCancel } = actions;
 
   const renderTodo = () => {
     const todoExtraction = todoItems.map((item: TodoInterface) => {
@@ -30,6 +32,12 @@ function TodoListing(props: TodoListingProps) {
           }}
           onDelete={(id) => {
             return onItemDelete(id);
+          }}
+          onCreate={(newItem) => {
+            return onItemCreate(newItem);
+          }}
+          onCancel={(isNewItem) => {
+            onItemCancel(isNewItem);
           }}
         />
       );

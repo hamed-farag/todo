@@ -1,4 +1,5 @@
 const icons = {
+  plus: "/assets/images/plus.svg",
   times: "/assets/images/times.svg",
 };
 

@@ -23,6 +23,7 @@ module.exports = {
       "@interfaces": path.join(__dirname, "src/interfaces"),
       "@services": path.join(__dirname, "src/services"),
       "@components": path.join(__dirname, "src/components"),
+      "@utils": path.join(__dirname, "src/utils"),
     },
   },
   module: {

@@ -25,6 +25,10 @@ class Services {
   public updateTodoItemById(item: TodoInterface): Promise<[response: IAPIResponse, error: Error]> {
     return asyncer(this.requester.put<TodoInterface, TodoInterface>(servicesUrls.updateTodo(item.id.toString()), item));
   }
+
+  public createTodoItemById(item: TodoInterface): Promise<[response: IAPIResponse, error: Error]> {
+    return asyncer(this.requester.post<TodoInterface, TodoInterface>(servicesUrls.createTodo, item));
+  }
 }
 
 export default new Services();

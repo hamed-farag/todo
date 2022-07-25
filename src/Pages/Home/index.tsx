@@ -3,8 +3,9 @@ import { toast } from "react-toastify";
 
 import UsersDropdown from "@components/Business/Users";
 import TodoListing from "./components/Listing";
+import Create from "./components/Create";
 
-import { getTodoByUserId, deleteTodoItemById, updateTodoItemById } from "./actions";
+import { getTodoByUserId, deleteTodoItemById, updateTodoItemById, createTodoItem, removeTempTodoItem } from "./actions";
 
 import TodoInterface, { TodoUpdatedProps } from "@interfaces/todo";
 
@@ -34,6 +35,11 @@ function Home() {
     if (selectedUserId) {
       setIsLoading(true);
       getTodoData(selectedUserId, currentPage);
+    } else {
+      // reset
+      setTodo([]);
+      setTotalCount(0);
+      setCurrentPage(1);
     }
   }, [selectedUserId, currentPage]);
 
@@ -63,23 +69,59 @@ function Home() {
     }
   };
 
+  const handleCreateTodoItem = async (newItem: TodoInterface) => {
+    if (selectedUserId) {
+      const [data, _] = await createTodoItem(selectedUserId, newItem, todo);
+      if (data) {
+        setTodo(data);
+        toast.success("Todo item Added Successfully!");
+        return true;
+      } else {
+        toast.error("Cannot Add Todo item!");
+        return false;
+      }
+    } else {
+      toast.error("User Not selected!");
+      return false;
+    }
+  };
+
   return (
     <div>
-      <UsersDropdown onChange={(userId) => setSelectedUserId(userId)} />
-      <br />
-      <TodoListing
-        isLoading={isLoading}
-        todoItems={todo}
-        totalCount={totalCount}
-        pageSize={env.pageSize}
-        actions={{
-          getCurrentPage: (value) => {
-            setCurrentPage(value);
-          },
-          onItemUpdate: (item) => handleUpdateTodoItem(item),
-          onItemDelete: (id) => handleDeleteTodoItem(id),
-        }}
-      />
+      <div>
+        <UsersDropdown onChange={(userId) => setSelectedUserId(userId)} />
+      </div>
+      <div>
+        <TodoListing
+          isLoading={isLoading}
+          todoItems={todo}
+          totalCount={totalCount}
+          pageSize={env.pageSize}
+          actions={{
+            getCurrentPage: (value) => {
+              setCurrentPage(value);
+            },
+            onItemUpdate: (item) => handleUpdateTodoItem(item),
+            onItemDelete: (id) => handleDeleteTodoItem(id),
+            onItemCreate: (newItem) => handleCreateTodoItem(newItem),
+            onItemCancel: (isNewItem) => {
+              debugger;
+              if (isNewItem) {
+                const newTodoState = removeTempTodoItem(todo);
+                setTodo(newTodoState);
+              }
+            },
+          }}
+        />
+      </div>
+      <div>
+        <Create
+          userId={Number(selectedUserId)}
+          onCreate={(item) => {
+            setTodo([item, ...todo]);
+          }}
+        />
+      </div>
     </div>
   );
 }
