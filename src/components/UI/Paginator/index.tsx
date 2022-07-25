@@ -1,4 +1,8 @@
-import React, { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
+import classNames from "classnames";
+
+import Icon from "../Icon";
+
 import "./styles.scss";
 
 interface PaginatorProps {
@@ -43,22 +47,48 @@ function Paginator(props: PaginatorProps) {
     // return new Array(pageSize).fill(0).map((_, idx) => start + idx + 1);
   };
 
+  const className = classNames("wk-paginator", { "wk-paginator--disabled": disabled });
+  const prevClassName = classNames("wk-paginator__page-item-prev", { "wk-paginator__page-item-prev--disabled": currentPage === 1 });
+  const nextClassName = classNames("wk-paginator__page-item-next", { "wk-paginator__page-item-next--disabled": currentPage === pages });
+
   return (
-    <div>
-      <button disabled={disabled} type="button" onClick={goToPreviousPage} className={`prev ${currentPage === 1 ? "disabled" : ""}`}>
-        prev
-      </button>
+    <ul className={className}>
+      <li
+        className={prevClassName}
+        onClick={(e) => {
+          disabled === false && currentPage !== 1 && goToPreviousPage();
+        }}
+      >
+        <Icon name="left-arrow" size="normal" />
+      </li>
 
-      {getPageItems().map((item) => (
-        <button disabled={disabled} type="button" key={item} onClick={handlePageClick} className={`item ${currentPage === item ? "active" : null}`}>
-          <span>{item}</span>
-        </button>
-      ))}
+      {getPageItems().map((item) => {
+        const className = classNames("wk-paginator__page-item", {
+          "wk-paginator__page-item--active": item === currentPage,
+        });
 
-      <button disabled={disabled} type="button" onClick={goToNextPage} className={`next ${currentPage === pages ? "disabled" : ""}`}>
-        next
-      </button>
-    </div>
+        return (
+          <li
+            className={className}
+            key={item}
+            onClick={(e) => {
+              disabled === false && handlePageClick(e);
+            }}
+          >
+            <span>{item}</span>
+          </li>
+        );
+      })}
+
+      <li
+        className={nextClassName}
+        onClick={(e) => {
+          disabled === false && currentPage !== pages && goToNextPage();
+        }}
+      >
+        <Icon name="right-arrow" size="normal" />
+      </li>
+    </ul>
   );
 }
 

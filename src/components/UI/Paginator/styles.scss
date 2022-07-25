@@ -1,0 +1,53 @@
+@import "@styles/abstracts/variables";
+
+.wk-paginator {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  &--disabled {
+    .wk-paginator__page-item {
+      background: $light-gray !important;
+      border: 2px solid $light-gray !important;
+      color: #fff !important;
+      cursor: not-allowed;
+    }
+    .wk-paginator__page-item-prev,
+    .wk-paginator__page-item-next {
+      cursor: not-allowed;
+    }
+  }
+  &__page-item,
+  &__page-item-prev,
+  &__page-item-next {
+    cursor: pointer;
+  }
+  &__page-item-prev,
+  &__page-item-next {
+    &--disabled {
+      cursor: not-allowed;
+    }
+  }
+  &__page-item {
+    background: transparent;
+    border: 2px solid $dark-gray;
+    color: $dark-gray;
+    padding: 1rem;
+    border-radius: 50%;
+    line-height: 1;
+    height: 0.1rem;
+    width: 0.1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &--active {
+      height: 0.5rem;
+      width: 0.5rem;
+      background: $primary;
+      color: $light-gray;
+      border: 0;
+    }
+  }
+}
