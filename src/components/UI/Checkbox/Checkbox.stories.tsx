@@ -20,6 +20,11 @@ Checked.args = {
   label: "Checkbox",
 };
 
+export const NoLabel = Template.bind({});
+NoLabel.args = {
+  checked: false,
+};
+
 export const UnChecked = Template.bind({});
 UnChecked.args = {
   checked: false,

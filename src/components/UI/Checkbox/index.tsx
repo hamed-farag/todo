@@ -15,16 +15,9 @@ function Checkbox(props: CheckboxProps) {
 
   return (
     // eslint-disable-next-line jsx-a11y/label-has-associated-control
-    <label>
+    <label className="wk-checkbox">
       <input type="checkbox" onChange={handleChange} checked={checked} />
-      <svg
-        className={`checkbox ${checked ? "checkbox--active" : ""}`}
-        // This element is purely decorative so
-        // we hide it for screen readers
-        aria-hidden="true"
-        viewBox="0 0 15 11"
-        fill="none"
-      >
+      <svg className={`wk-checkbox__cb ${checked ? "wk-checkbox__cb--active" : ""}`} aria-hidden="true" viewBox="0 0 15 11" fill="none">
         <path d="M1 4.5L5 9L14 1" strokeWidth="2" stroke={checked ? "#fff" : "none"} />
       </svg>
       {label}

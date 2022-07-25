@@ -1,25 +1,29 @@
+@import "@styles/abstracts/variables";
+
 .wk-checkbox {
-}
-input[type="checkbox"] {
-  clip: rect(0 0 0 0);
-  clip-path: inset(50%);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-}
-
-.checkbox {
-  display: inline-block;
-  height: 20px;
-  width: 20px;
-  background: #fff;
-  border: 2px #ddd solid;
-  margin-right: 4px;
-}
-
-.checkbox--active {
-  border-color: purple;
-  background: purple;
+  cursor: pointer;
+  font-size: 14px;
+  input[type="checkbox"] {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+  display: flex;
+  align-items: center;
+  &__cb {
+    height: 20px;
+    width: 20px;
+    background: #fff;
+    border: 2px $dark-gray solid;
+    margin-inline-end: 4px;
+    border-radius: 5px;
+    &--active {
+      border-color: $primary;
+      background: $primary;
+    }
+  }
 }
