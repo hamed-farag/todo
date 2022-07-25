@@ -16,7 +16,7 @@ interface FormProps {
 function Form(props: FormProps) {
   const { value, onChange, onSave, onCancel, text } = props;
   return (
-    <div>
+    <div className="wk-todo-card__form">
       <Textbox value={value} placeholder={text.inputPlaceholder} onChange={onChange} />
       <div>
         <Button name={text.save} value={text.save} onClick={onSave} />

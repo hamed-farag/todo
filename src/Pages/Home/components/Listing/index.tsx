@@ -3,6 +3,8 @@ import TodoCard from "../TodoCard";
 
 import TodoInterface, { TodoUpdatedProps } from "@interfaces/todo";
 
+import "./styles.scss";
+
 interface TodoListingProps {
   isLoading: boolean;
   todoItems: Array<TodoInterface>;
@@ -46,17 +48,31 @@ function TodoListing(props: TodoListingProps) {
     return todoExtraction;
   };
 
+  const renderContent = () => {
+    if (isLoading) {
+      return <span>Loading</span>;
+    }
+
+    if (!isLoading && todoItems.length === 0) {
+      return <span>Empty</span>;
+    }
+
+    return renderTodo();
+  };
+
   return (
-    <div>
-      {isLoading ? <span>Loading</span> : renderTodo()}
-      <Paginator
-        totalCount={totalCount}
-        disabled={false}
-        pageSize={pageSize}
-        onChange={(selectedPage) => {
-          getCurrentPage(selectedPage);
-        }}
-      />
+    <div className="wk-todo-list">
+      <div className="wk-todo-list__content">{renderContent()}</div>
+      <div className="wk-todo-list__footer">
+        <Paginator
+          totalCount={totalCount}
+          disabled={false}
+          pageSize={pageSize}
+          onChange={(selectedPage) => {
+            getCurrentPage(selectedPage);
+          }}
+        />
+      </div>
     </div>
   );
 }

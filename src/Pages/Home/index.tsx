@@ -11,6 +11,8 @@ import TodoInterface, { TodoUpdatedProps } from "@interfaces/todo";
 
 import env from "@configs/env";
 
+import "./styles.scss";
+
 function Home() {
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
   const [todo, setTodo] = useState<Array<TodoInterface>>([]);
@@ -87,11 +89,11 @@ function Home() {
   };
 
   return (
-    <div>
-      <div>
+    <div className="wk-home-page">
+      <div className="wk-home-page__users">
         <UsersDropdown onChange={(userId) => setSelectedUserId(userId)} />
       </div>
-      <div>
+      <div className="wk-home-page__content">
         <TodoListing
           isLoading={isLoading}
           todoItems={todo}
@@ -105,7 +107,6 @@ function Home() {
             onItemDelete: (id) => handleDeleteTodoItem(id),
             onItemCreate: (newItem) => handleCreateTodoItem(newItem),
             onItemCancel: (isNewItem) => {
-              debugger;
               if (isNewItem) {
                 const newTodoState = removeTempTodoItem(todo);
                 setTodo(newTodoState);
@@ -114,7 +115,7 @@ function Home() {
           }}
         />
       </div>
-      <div>
+      <div className="wk-home-page__create">
         <Create
           userId={Number(selectedUserId)}
           onCreate={(item) => {

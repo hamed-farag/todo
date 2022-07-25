@@ -1,0 +1,10 @@
+.wk-todo-list {
+  &__content {
+    border-radius: 5px;
+    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 20%), 0 25px 50px 0 rgb(0 0 0 / 10%);
+    margin-bottom: 1.5rem;
+  }
+  &__footer {
+    margin-bottom: 1.5rem;
+  }
+}

@@ -8,7 +8,7 @@ interface ViewProps {
 function View(props: ViewProps) {
   const { value, onDoubleClick } = props;
   return (
-    <div onDoubleClick={onDoubleClick}>
+    <div className="wk-todo-card__view" onDoubleClick={onDoubleClick}>
       <Label text={value} />
     </div>
   );
