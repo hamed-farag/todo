@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 
 import Button from "@components/UI/Button";
 import Checkbox from "@components/UI/Checkbox";
-import Textbox from "@components/UI/Textbox";
 import Icon from "@components/UI/Icon";
-import Label from "@components/UI/Label";
+
+import Form from "./Form";
+import View from "./View";
 
 import TodoInterface, { TodoUpdatedProps, todoEnum, NewTodoInterface } from "@interfaces/todo";
 
@@ -71,30 +72,25 @@ function TodoCard(props: TodoCardProps) {
   const renderTodoContent = () => {
     if (isEditMode) {
       return (
-        <div>
-          <Textbox
-            value={todoTitle}
-            placeholder="Write your item!"
-            onChange={(e) => {
-              setTodoTitle(e.target.value);
-            }}
-          />
-          <div>
-            <Button name="Update" value="Update" onClick={handleSaveClick} />
-            <Button name="Cancel" value="Cancel" onClick={handleCancelUpdates} />
-          </div>
-        </div>
+        <Form
+          value={todoTitle}
+          onChange={(e) => {
+            setTodoTitle(e.target.value);
+          }}
+          onSave={handleSaveClick}
+          onCancel={handleCancelUpdates}
+          text={{ save: "Update", cancel: "Cancel", inputPlaceholder: "Write your item!" }}
+        />
       );
     }
 
     return (
-      <div
+      <View
+        value={data.title}
         onDoubleClick={() => {
           setIsEditMode(true);
         }}
-      >
-        <Label text={data.title} />
-      </div>
+      />
     );
   };
 
