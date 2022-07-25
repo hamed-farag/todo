@@ -13,22 +13,19 @@ export default {
 const Template: ComponentStory<typeof Icon> = (args) => <Icon {...args} />;
 
 export const Normal = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 Normal.args = {
   name: "times",
   size: "normal",
 };
 
-export const Big = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-Big.args = {
-  name: "times",
-  size: "big",
-};
-
 export const Small = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
 Small.args = {
   name: "times",
   size: "small",
+};
+
+export const Big = Template.bind({});
+Big.args = {
+  name: "times",
+  size: "big",
 };
