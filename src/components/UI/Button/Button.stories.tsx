@@ -30,3 +30,10 @@ ButtonType.args = {
   value: "Button",
   type: "button",
 };
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+  value: "Button",
+  type: "button",
+  disabled: true,
+};
