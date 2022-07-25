@@ -1,0 +1,12 @@
+.wk-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  &__icon {
+    margin-bottom: 0.5rem;
+  }
+  &__title {
+    font-size: 2rem;
+    font-weight: 500;
+  }
+}

@@ -1,4 +1,9 @@
+import { FaList } from "react-icons/fa";
+
 import Paginator from "@components/UI/Paginator";
+import Empty from "@components/UI/Empty";
+import Spinner from "@components/UI/Spinner";
+
 import TodoCard from "../TodoCard";
 
 import TodoInterface, { TodoUpdatedProps } from "@interfaces/todo";
@@ -50,11 +55,19 @@ function TodoListing(props: TodoListingProps) {
 
   const renderContent = () => {
     if (isLoading) {
-      return <span>Loading</span>;
+      return (
+        <div className="wk-todo-list__loading">
+          <Spinner size="big" />
+        </div>
+      );
     }
 
     if (!isLoading && todoItems.length === 0) {
-      return <span>Empty</span>;
+      return (
+        <div className="wk-todo-list__empty">
+          <Empty icon={<FaList size="80" />} title="No todo!" />
+        </div>
+      );
     }
 
     return renderTodo();

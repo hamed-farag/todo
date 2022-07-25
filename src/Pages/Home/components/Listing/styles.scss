@@ -4,6 +4,15 @@
     box-shadow: 0 2px 4px 0 rgb(0 0 0 / 20%), 0 25px 50px 0 rgb(0 0 0 / 10%);
     margin-bottom: 1.5rem;
   }
+  &__empty,
+  &__loading {
+    padding: 1rem;
+    min-height: 5rem;
+  }
+  &__loading {
+    display: flex;
+    justify-content: center;
+  }
   &__footer {
     margin-bottom: 1.5rem;
   }
