@@ -1,5 +1,6 @@
 const USERS_URL = "/users";
 const TODO_URL = "/todos";
+const HISTORY_URL = "/history";
 
 const servicesUrls = {
   users: `${USERS_URL}`,
@@ -7,6 +8,8 @@ const servicesUrls = {
   deleteTodo: (id: string) => `${TODO_URL}/${id}`,
   updateTodo: (id: string) => `${TODO_URL}/${id}`,
   createTodo: `${TODO_URL}`,
+  getHistory: `${HISTORY_URL}`,
+  addHistoryItem: `${HISTORY_URL}`,
 };
 
 export default servicesUrls;
