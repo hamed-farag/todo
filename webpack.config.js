@@ -24,6 +24,7 @@ module.exports = {
       "@services": path.join(__dirname, "src/services"),
       "@components": path.join(__dirname, "src/components"),
       "@utils": path.join(__dirname, "src/utils"),
+      "@styles": path.join(__dirname, "src/styles"),
     },
   },
   module: {
