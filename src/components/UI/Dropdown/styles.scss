@@ -1,0 +1,49 @@
+@import "@styles/abstracts/variables";
+
+.wk-dropdown {
+  width: 100%;
+
+  // reset
+  select {
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    padding: 0 1em 0 0;
+    margin: 0;
+    width: 100%;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: inherit;
+    line-height: inherit;
+    z-index: 1;
+    outline: none;
+  }
+
+  &__select {
+    display: grid;
+    grid-template-areas: "select";
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    background-color: #fff;
+    border: 1px solid $dark-gray;
+    border-radius: 5px;
+    padding: 0.25em 0.5em;
+    line-height: 1.5;
+
+    select,
+    &::after {
+      grid-area: select;
+    }
+
+    // Custom arrow
+    &::after {
+      content: "";
+      justify-self: end;
+      width: 0.8em;
+      height: 0.4em;
+      background-color: $dark-gray;
+      clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+    }
+  }
+}

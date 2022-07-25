@@ -15,8 +15,8 @@ function Dropdown(props: DropDownProps) {
   const value = selectedValue ?? "";
 
   return (
-    <div>
-      <label>
+    <div className="wk-dropdown">
+      <label className="wk-dropdown__select">
         <select value={value} onChange={(e) => onChange(e.target.value !== "" ? e.target.value : null)}>
           <option value="">{defaultLabel}</option>
           {items.map((item) => (
