@@ -1,3 +1,5 @@
+import classNames from "classnames";
+
 import "./styles.scss";
 
 interface TextboxProps {
@@ -9,8 +11,10 @@ interface TextboxProps {
 function Textbox(props: TextboxProps) {
   const { placeholder, value, onChange } = props;
 
+  const className = classNames("wk-textbox");
+
   // support required and make if it required show red border
-  return <input type="text" value={value} onChange={onChange} placeholder={placeholder} />;
+  return <input className={className} type="text" value={value} onChange={onChange} placeholder={placeholder} />;
 }
 
 export default Textbox;
