@@ -19,6 +19,20 @@ Value.args = {
   name: "button",
 };
 
+export const Primary = Template.bind({});
+Primary.args = {
+  value: "Primary Button",
+  type: "button",
+  theme: "primary",
+};
+
+export const Secondary = Template.bind({});
+Secondary.args = {
+  value: "Secondary Button",
+  type: "button",
+  theme: "secondary",
+};
+
 export const SubmitType = Template.bind({});
 SubmitType.args = {
   value: "Submit Button",

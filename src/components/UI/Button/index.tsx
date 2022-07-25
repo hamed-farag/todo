@@ -1,7 +1,10 @@
+import classNames from "classnames";
+
 import "./styles.scss";
 
 interface ButtonProps {
-  type?: "button" | "submit" | "reset";
+  type: "button" | "submit" | "reset";
+  theme: "primary" | "secondary";
   value: string | React.ReactNode;
   name: string;
   disabled: boolean;
@@ -9,11 +12,13 @@ interface ButtonProps {
 }
 
 function Button(props: ButtonProps) {
-  const { type, value, name, onClick, disabled } = props;
+  const { type, value, name, onClick, disabled, theme } = props;
+
+  const className = classNames("wk-button", { "wk-button__primary": theme === "primary", "wk-button__secondary": theme === "secondary" });
 
   return (
     // eslint-disable-next-line react/button-has-type
-    <button type={type} onClick={onClick} name={name} aria-label={name} disabled={disabled}>
+    <button className={className} type={type} onClick={onClick} name={name} aria-label={name} disabled={disabled}>
       {value}
     </button>
   );
@@ -22,6 +27,7 @@ function Button(props: ButtonProps) {
 Button.defaultProps = {
   type: "button",
   disabled: false,
+  theme: "primary",
 };
 
 export default Button;
