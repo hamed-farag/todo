@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import "./styles.scss";
 
@@ -7,10 +7,12 @@ function Nav() {
     <nav className="wk-main-layout-nav">
       <ul>
         <li>
-          <Link to="/">Home</Link>
+          <NavLink to="/">{({ isActive }) => <span className={isActive ? "wk-main-layout-nav--active-item" : undefined}>Home</span>}</NavLink>
         </li>
         <li>
-          <Link to="/history">History</Link>
+          <NavLink to="/history">
+            {({ isActive }) => <span className={isActive ? "wk-main-layout-nav--active-item" : undefined}>History</span>}
+          </NavLink>
         </li>
       </ul>
     </nav>

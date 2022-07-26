@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import classNames from "classnames";
 import { FaChevronCircleRight, FaChevronCircleLeft } from "react-icons/fa";
+import colors from "@configs/colors";
 
 import "./styles.scss";
 
@@ -40,10 +41,8 @@ function Paginator(props: PaginatorProps) {
   }
 
   const getPageItems = () => {
-    return new Array(pages).fill(0).map((_, idx) => idx + 1);
-
-    // const start = Math.floor((currentPage - 1) / pageSize) * pageSize;
-    // return new Array(pageSize).fill(0).map((_, idx) => start + idx + 1);
+    const numberOfPages = Math.ceil(totalCount / pageSize);
+    return new Array(numberOfPages).fill(0).map((_, idx) => idx + 1);
   };
 
   const className = classNames("wk-paginator", { "wk-paginator--disabled": disabled });
@@ -58,7 +57,7 @@ function Paginator(props: PaginatorProps) {
           disabled === false && currentPage !== 1 && goToPreviousPage();
         }}
       >
-        <FaChevronCircleLeft size="30" />
+        <FaChevronCircleLeft size="30" color={colors.iconColor} />
       </li>
 
       {getPageItems().map((item) => {
@@ -85,7 +84,7 @@ function Paginator(props: PaginatorProps) {
           disabled === false && currentPage !== pages && goToNextPage();
         }}
       >
-        <FaChevronCircleRight size="30" />
+        <FaChevronCircleRight size="30" color={colors.iconColor} />
       </li>
     </ul>
   );

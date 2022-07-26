@@ -234,18 +234,6 @@
   "todos": [
     {
       "userId": 1,
-      "id": 2,
-      "title": "quis ut nam facilis et officia qui",
-      "completed": true
-    },
-    {
-      "userId": 1,
-      "id": 3,
-      "title": "Edit Todosdfsdf",
-      "completed": true
-    },
-    {
-      "userId": 1,
       "id": 4,
       "title": "et porro tempora",
       "completed": true
@@ -254,7 +242,7 @@
       "userId": 1,
       "id": 5,
       "title": "laboriosam mollitia et enim quasi adipisci quia provident illum",
-      "completed": false
+      "completed": true
     },
     {
       "userId": 1,
@@ -302,7 +290,7 @@
       "userId": 1,
       "id": 13,
       "title": "et doloremque nulla",
-      "completed": false
+      "completed": true
     },
     {
       "userId": 1,
@@ -1505,6 +1493,53 @@
       "createAt": "2022-07-26T16:44:23.299Z",
       "method": "put",
       "url": "/todos/2"
+    },
+    {
+      "id": 116114934,
+      "userId": "1",
+      "createAt": "2022-07-26T18:01:36.663Z",
+      "method": "delete",
+      "url": "/todos/670794928"
+    },
+    {
+      "id": 884097522,
+      "userId": "1",
+      "createAt": "2022-07-26T18:01:41.021Z",
+      "method": "delete",
+      "url": "/todos/2"
+    },
+    {
+      "id": 1042085923,
+      "userId": "1",
+      "data": {
+        "userId": 1,
+        "id": 13,
+        "title": "et doloremque nulla",
+        "completed": true
+      },
+      "createAt": "2022-07-26T18:22:03.804Z",
+      "method": "put",
+      "url": "/todos/13"
+    },
+    {
+      "id": 759103814,
+      "userId": "1",
+      "createAt": "2022-07-26T18:43:46.855Z",
+      "method": "delete",
+      "url": "/todos/3"
+    },
+    {
+      "id": 1252969958,
+      "userId": "1",
+      "data": {
+        "userId": 1,
+        "id": 5,
+        "title": "laboriosam mollitia et enim quasi adipisci quia provident illum",
+        "completed": true
+      },
+      "createAt": "2022-07-26T18:43:52.950Z",
+      "method": "put",
+      "url": "/todos/5"
     }
   ]
 }

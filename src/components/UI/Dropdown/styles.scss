@@ -2,11 +2,17 @@
 
 .wk-dropdown {
   width: 100%;
-
+  position: relative;
+  &__loading {
+    position: absolute;
+    z-index: 1;
+    right: 1.5rem;
+    top: 0.5rem;
+  }
   // reset
   select {
     appearance: none;
-    background-color: #fff;
+    background-color: transparent;
     border: none;
     padding: 0 1em 0 0;
     margin: 0;
@@ -20,12 +26,13 @@
   }
 
   &__select {
+    background: #fff;
     display: grid;
     grid-template-areas: "select";
     align-items: center;
     position: relative;
     cursor: pointer;
-    border: 1px solid $dark-gray;
+    border: 1px solid $primary;
     border-radius: 5px;
     padding: 0.25em 0.5em;
     line-height: 1.5;
@@ -41,7 +48,7 @@
       justify-self: end;
       width: 0.8em;
       height: 0.4em;
-      background-color: $dark-gray;
+      background-color: $primary;
       clip-path: polygon(100% 0%, 0 0%, 50% 100%);
     }
   }

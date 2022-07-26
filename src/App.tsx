@@ -7,6 +7,7 @@ import Home from "./Pages/Home";
 import History from "./Pages/History";
 
 import "react-toastify/dist/ReactToastify.css";
+import "./app.styles.scss";
 import "./styles/main.scss";
 
 function App() {

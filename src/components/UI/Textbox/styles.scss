@@ -1,8 +1,10 @@
 @import "@styles/abstracts/variables";
 
 .wk-textbox {
-  border: 2px solid $dark-gray;
+  border: 2px solid $primary;
   border-radius: 5px;
   padding: 0.5rem;
   line-height: 1;
+  outline: none;
+  width: 100%;
 }

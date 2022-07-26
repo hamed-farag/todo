@@ -8,6 +8,8 @@ import TodoCard from "../TodoCard";
 
 import TodoInterface, { TodoUpdatedProps } from "@interfaces/todo";
 
+import colors from "@configs/colors";
+
 import "./styles.scss";
 
 interface TodoListingProps {
@@ -65,7 +67,7 @@ function TodoListing(props: TodoListingProps) {
     if (!isLoading && todoItems.length === 0) {
       return (
         <div className="wk-todo-list__empty">
-          <Empty icon={<FaList size="80" />} title="No todo!" />
+          <Empty icon={<FaList size="80" color={colors.iconColor} />} title="No todo!" />
         </div>
       );
     }
@@ -76,16 +78,18 @@ function TodoListing(props: TodoListingProps) {
   return (
     <div className="wk-todo-list">
       <div className="wk-todo-list__content">{renderContent()}</div>
-      <div className="wk-todo-list__footer">
-        <Paginator
-          totalCount={totalCount}
-          disabled={false}
-          pageSize={pageSize}
-          onChange={(selectedPage) => {
-            getCurrentPage(selectedPage);
-          }}
-        />
-      </div>
+      {totalCount > todoItems.length && (
+        <div className="wk-todo-list__footer">
+          <Paginator
+            totalCount={totalCount}
+            disabled={false}
+            pageSize={pageSize}
+            onChange={(selectedPage) => {
+              getCurrentPage(selectedPage);
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 }

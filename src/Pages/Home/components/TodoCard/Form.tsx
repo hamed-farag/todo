@@ -2,6 +2,8 @@ import Textbox from "@components/UI/Textbox";
 
 import { FaSave, FaTimesCircle } from "react-icons/fa";
 
+import colors from "@configs/colors";
+
 interface FormProps {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -20,8 +22,8 @@ function Form(props: FormProps) {
     <div className="wk-todo-card__form">
       <Textbox value={value} placeholder={text.inputPlaceholder} onChange={onChange} />
       <div className="wk-todo-card__actions">
-        <FaSave cursor={"pointer"} onClick={onSave} size="20" />
-        <FaTimesCircle cursor={"pointer"} onClick={onCancel} size="20" />
+        <FaSave cursor={"pointer"} onClick={onSave} size="20" color={colors.iconColor} />
+        <FaTimesCircle cursor={"pointer"} onClick={onCancel} size="20" color={colors.iconColor} />
       </div>
     </div>
   );

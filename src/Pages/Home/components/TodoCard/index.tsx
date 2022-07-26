@@ -6,6 +6,8 @@ import View from "./View";
 
 import TodoInterface, { TodoUpdatedProps, todoEnum, NewTodoInterface } from "@interfaces/todo";
 
+import colors from "@configs/colors";
+
 import "./styles.scss";
 
 interface TodoCardProps {
@@ -93,9 +95,9 @@ function TodoCard(props: TodoCardProps) {
 
   const renderCheckbox = () => {
     if (data.completed) {
-      return <FaCheckCircle size={"25"} cursor={"pointer"} onClick={() => handleUpdates("completed", false)} />;
+      return <FaCheckCircle size={"25"} color={colors.iconColor} cursor={"pointer"} onClick={() => handleUpdates("completed", false)} />;
     }
-    return <FaRegCircle size={"25"} cursor={"pointer"} onClick={() => handleUpdates("completed", true)} />;
+    return <FaRegCircle size={"25"} color={colors.iconColor} cursor={"pointer"} onClick={() => handleUpdates("completed", true)} />;
   };
 
   return (
@@ -109,6 +111,7 @@ function TodoCard(props: TodoCardProps) {
         <FaRegTrashAlt
           cursor={"pointer"}
           size={"20"}
+          color={colors.iconColor}
           onClick={() => {
             handleDelete();
           }}

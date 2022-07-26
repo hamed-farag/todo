@@ -34,3 +34,15 @@ DefaultSelection.args = {
   ],
   selectedValue: "item2",
 };
+
+export const Loading = Template.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+Loading.args = {
+  defaultLabel: "Select Item",
+  loading: true,
+  items: [
+    { label: "item 1", value: "item1" },
+    { label: "item 2", value: "item2" },
+  ],
+  selectedValue: null,
+};

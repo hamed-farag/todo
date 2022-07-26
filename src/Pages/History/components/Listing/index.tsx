@@ -8,6 +8,8 @@ import HistoryCard from "../HistoryCard";
 
 import HistoryItemInterface from "@interfaces/history";
 
+import colors from "@configs/colors";
+
 import "./styles.scss";
 
 interface HistoryListingProps {
@@ -44,7 +46,7 @@ function HistoryListing(props: HistoryListingProps) {
     if (!isLoading && historyItems.length === 0) {
       return (
         <div className="wk-history-list__empty">
-          <Empty icon={<FaList size="80" />} title="No History!" />
+          <Empty icon={<FaList size="80" color={colors.iconColor} />} title="No History!" />
         </div>
       );
     }
@@ -55,16 +57,18 @@ function HistoryListing(props: HistoryListingProps) {
   return (
     <div className="wk-history-list">
       <div className="wk-history-list__content">{renderContent()}</div>
-      <div className="wk-history-list__footer">
-        <Paginator
-          totalCount={totalCount}
-          disabled={false}
-          pageSize={pageSize}
-          onChange={(selectedPage) => {
-            getCurrentPage(selectedPage);
-          }}
-        />
-      </div>
+      {totalCount > historyItems.length && (
+        <div className="wk-history-list__footer">
+          <Paginator
+            totalCount={totalCount}
+            disabled={false}
+            pageSize={pageSize}
+            onChange={(selectedPage) => {
+              getCurrentPage(selectedPage);
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 }

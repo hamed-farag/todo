@@ -1,13 +1,24 @@
+@import "@styles/abstracts/variables";
+
 .wk-main-layout-nav {
   ul {
     list-style: none;
     display: flex;
-    li a {
+    li a span {
       display: inline-block;
+      border-radius: 5px;
       margin: 0 0.5rem;
       padding: 1rem;
-      background-color: yellow;
+      background: $primary;
+      color: $light-gray;
       text-decoration: none;
+      transition: 0.3s;
+      &:hover {
+        background-color: darken($primary, 10%);
+      }
     }
+  }
+  &--active-item {
+    background-color: darken($primary, 20%) !important;
   }
 }

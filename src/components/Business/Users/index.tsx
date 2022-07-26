@@ -2,12 +2,15 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 import Dropdown from "@components/UI/Dropdown";
+import Label from "@components/UI/Label";
 
 import userService from "@services/users";
 
 import UserInterface from "@interfaces/users";
 
 import logger from "@helpers/logger";
+
+import "./styles.scss";
 
 interface UsersProps {
   onChange: (value: string | null) => void;
@@ -43,19 +46,26 @@ function Users(props: UsersProps) {
     }
   }, [selectedUser]);
 
-  const renderUsers = () => {
-    const usersExtraction = users.map((user: UserInterface) => {
-      return { value: user.id.toString(), label: user.name };
-    });
+  const usersExtraction = users.map((user: UserInterface) => {
+    return { value: user.id.toString(), label: user.name };
+  });
 
-    return <Dropdown onChange={(value) => setSelectedUser(value)} selectedValue={selectedUser} items={usersExtraction} defaultLabel="Select User" />;
-  };
-
-  if (isLoading) {
-    return <div>Loading</div>;
-  }
-
-  return <div>{renderUsers()}</div>;
+  return (
+    <div className="wk-users-dropdown">
+      <div className="wk-users-dropdown__label">
+        <Label text="Select a user to show his/her todos!" size="big" />
+      </div>
+      <div className="wk-users-dropdown__collection">
+        <Dropdown
+          loading={isLoading}
+          onChange={(value) => setSelectedUser(value)}
+          selectedValue={selectedUser}
+          items={usersExtraction}
+          defaultLabel="Select User"
+        />
+      </div>
+    </div>
+  );
 }
 
 export default Users;
