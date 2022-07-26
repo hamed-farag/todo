@@ -130,6 +130,9 @@ function Home() {
           }}
         />
       </div>
+      <div className="wk-home-page__footer">
+        <small>Double-click to edit a todo</small>
+      </div>
     </div>
   );
 }

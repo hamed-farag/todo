@@ -1371,12 +1371,6 @@
       "title": "zxczxc",
       "completed": false,
       "userId": 1
-    },
-    {
-      "id": 484693061,
-      "title": "zxczxczxc",
-      "completed": false,
-      "userId": 1
     }
   ],
   "history": [
@@ -1675,6 +1669,13 @@
       "createAt": "2022-07-26T18:58:14.438Z",
       "method": "post",
       "url": "/todos"
+    },
+    {
+      "id": 1056624494,
+      "userId": "1",
+      "createAt": "2022-07-26T19:07:18.845Z",
+      "method": "delete",
+      "url": "/todos/484693061"
     }
   ]
 }
