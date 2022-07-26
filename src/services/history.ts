@@ -8,6 +8,7 @@ import env from "@configs/env";
 import servicesUrls from "@configs/servicesUrl";
 
 import HistoryItemInterface from "@interfaces/history";
+import { IAPIResponse } from "@interfaces/http";
 
 class Services {
   private requester: IRequester;
@@ -16,12 +17,13 @@ class Services {
     this.requester = new Requester({ baseUrl: env.baseUrl });
   }
 
-  public createHistoryLog(url?: string, item?: any, method?: string) {
+  public createHistoryLog(userId: string, url?: string, item?: any, method?: string) {
     const itemId = generateRandomNumber();
 
     try {
       const dataItem = {
         id: itemId,
+        userId: userId,
         data: item,
         createAt: new Date().toISOString(),
         method,
@@ -31,6 +33,10 @@ class Services {
     } catch (error) {
       logger.error("Invalid Json Object", error as Error);
     }
+  }
+
+  public getHistoryByUserId(userId: string, pageNumber: string, pageSize: string): Promise<[response: IAPIResponse, error: Error]> {
+    return asyncer(this.requester.get<Array<HistoryItemInterface>>(servicesUrls.getHistory(userId, pageNumber, pageSize)));
   }
 }
 

@@ -4,5 +4,6 @@
   "/api/todos/": "/todos/",
   "/api/todos\\?userId=:id": "/todos?userId=:id",
   "/api/todos/:id": "/todos/:id",
-  "/api/history": "/history/"
+  "/api/history": "/history/",
+  "/api/history\\?userId=:id": "/history?userId=:id"
 }

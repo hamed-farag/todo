@@ -28,9 +28,10 @@ export async function getTodoByUserId(
 
 export async function deleteTodoItemById(
   id: number,
+  userId: string,
   state: Array<TodoInterface>
 ): Promise<[response: Array<TodoInterface> | undefined, error: Error | undefined]> {
-  const [response, error] = await todoService.deleteTodoItemById(id.toString());
+  const [response, error] = await todoService.deleteTodoItemById(id.toString(), userId);
 
   if (response) {
     const newState = produce(state, (draftState) => {
@@ -49,6 +50,7 @@ export async function deleteTodoItemById(
 
 export async function updateTodoItemById(
   item: TodoUpdatedProps,
+  userId: string,
   state: Array<TodoInterface>
 ): Promise<[response: Array<TodoInterface> | undefined, error: Error | undefined]> {
   const itemToBeUpdated = state.find((itm) => itm.id === item.id);
@@ -69,7 +71,7 @@ export async function updateTodoItemById(
     clonedItemToBeUpdated.title = item.value;
   }
 
-  const [response, error] = await todoService.updateTodoItemById(clonedItemToBeUpdated);
+  const [response, error] = await todoService.updateTodoItemById(clonedItemToBeUpdated, userId);
 
   if (response) {
     const newState = produce(state, (draftState) => {
@@ -95,7 +97,7 @@ export async function createTodoItem(
   delete newTodo.isEditMode;
   delete newTodo.isNew;
 
-  const [response, error] = await todoService.createTodoItemById(newTodo);
+  const [response, error] = await todoService.createTodoItemById(newTodo, userId);
   if (response) {
     const newState = produce(state, (draftState) => {
       // update the item with response.data

@@ -46,7 +46,7 @@ function Home() {
   }, [selectedUserId, currentPage]);
 
   const handleUpdateTodoItem = async (item: TodoUpdatedProps) => {
-    const [data, _] = await updateTodoItemById(item, todo);
+    const [data, _] = await updateTodoItemById(item, selectedUserId ?? "", todo);
 
     if (data) {
       setTodo(data);
@@ -59,7 +59,7 @@ function Home() {
   };
 
   const handleDeleteTodoItem = async (id: number) => {
-    const [data, _] = await deleteTodoItemById(id, todo);
+    const [data, _] = await deleteTodoItemById(id, selectedUserId ?? "", todo);
 
     if (data) {
       setTodo(data);

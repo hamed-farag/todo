@@ -12,16 +12,22 @@ import { IAPIResponse, IConfig } from "@interfaces/http";
 class Services {
   private requester: IRequester;
 
-  private headers = { headers: { "x-monitor": "true" } };
+  private headers(userId: string) {
+    return { headers: { "x-monitor": "true", "x-user-id": userId } };
+  }
 
+  // build history by check for monitor flag & userId
+  // i believe to build a history, it should handled from Backend in log table
   private handleRequestInterceptor(axiosRequestConfig: IConfig) {
     if (
       axiosRequestConfig &&
       axiosRequestConfig.headers &&
       axiosRequestConfig.headers["x-monitor"] &&
+      axiosRequestConfig.headers["x-user-id"] &&
       axiosRequestConfig.headers["x-monitor"] === "true"
     ) {
-      HistoryService.createHistoryLog(axiosRequestConfig.url, axiosRequestConfig.data, axiosRequestConfig.method);
+      const userId = axiosRequestConfig.headers["x-user-id"];
+      HistoryService.createHistoryLog(userId.toString(), axiosRequestConfig.url, axiosRequestConfig.data, axiosRequestConfig.method);
     }
   }
 
@@ -33,16 +39,16 @@ class Services {
     return asyncer(this.requester.get<Array<TodoInterface>>(servicesUrls.userTodo(userId, pageNumber, pageSize)));
   }
 
-  public deleteTodoItemById(id: string): Promise<[response: IAPIResponse, error: Error]> {
-    return asyncer(this.requester.delete<Array<TodoInterface>>(servicesUrls.deleteTodo(id), this.headers));
+  public deleteTodoItemById(id: string, userId: string): Promise<[response: IAPIResponse, error: Error]> {
+    return asyncer(this.requester.delete<Array<TodoInterface>>(servicesUrls.deleteTodo(id), this.headers(userId)));
   }
 
-  public updateTodoItemById(item: TodoInterface): Promise<[response: IAPIResponse, error: Error]> {
-    return asyncer(this.requester.put<TodoInterface, TodoInterface>(servicesUrls.updateTodo(item.id.toString()), item, this.headers));
+  public updateTodoItemById(item: TodoInterface, userId: string): Promise<[response: IAPIResponse, error: Error]> {
+    return asyncer(this.requester.put<TodoInterface, TodoInterface>(servicesUrls.updateTodo(item.id.toString()), item, this.headers(userId)));
   }
 
-  public createTodoItemById(item: TodoInterface): Promise<[response: IAPIResponse, error: Error]> {
-    return asyncer(this.requester.post<TodoInterface, TodoInterface>(servicesUrls.createTodo, item, this.headers));
+  public createTodoItemById(item: TodoInterface, userId: string): Promise<[response: IAPIResponse, error: Error]> {
+    return asyncer(this.requester.post<TodoInterface, TodoInterface>(servicesUrls.createTodo, item, this.headers(userId)));
   }
 }
 

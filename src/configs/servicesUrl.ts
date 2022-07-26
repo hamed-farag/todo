@@ -8,7 +8,7 @@ const servicesUrls = {
   deleteTodo: (id: string) => `${TODO_URL}/${id}`,
   updateTodo: (id: string) => `${TODO_URL}/${id}`,
   createTodo: `${TODO_URL}`,
-  getHistory: `${HISTORY_URL}`,
+  getHistory: (userId: string, pageNumber: string, pageSize: string) => `${HISTORY_URL}?userId=${userId}&_page=${pageNumber}&_limit=${pageSize}`,
   addHistoryItem: `${HISTORY_URL}`,
 };
 
