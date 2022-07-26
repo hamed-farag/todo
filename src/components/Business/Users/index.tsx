@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 import Dropdown from "@components/UI/Dropdown";
 import Label from "@components/UI/Label";
@@ -17,6 +18,7 @@ interface UsersProps {
 }
 
 function Users(props: UsersProps) {
+  const { t } = useTranslation();
   const { onChange } = props;
 
   const [users, setUsers] = useState<Array<UserInterface>>([]);
@@ -29,7 +31,7 @@ function Users(props: UsersProps) {
     if (response) {
       setUsers(response.data);
     } else {
-      toast.error("Cannot Fetch Users!");
+      toast.error(t("users.fetch_error_friendly"));
       logger.error("Something went Wrong, Cannot Fetch Users!", error);
     }
 
@@ -53,7 +55,7 @@ function Users(props: UsersProps) {
   return (
     <div className="wk-users-dropdown">
       <div className="wk-users-dropdown__label">
-        <Label text="Select a user to show his/her todos!" size="big" />
+        <Label text={t("users.users_placeholder")} size="big" />
       </div>
       <div className="wk-users-dropdown__collection">
         <Dropdown
@@ -61,7 +63,7 @@ function Users(props: UsersProps) {
           onChange={(value) => setSelectedUser(value)}
           selectedValue={selectedUser}
           items={usersExtraction}
-          defaultLabel="Select User"
+          defaultLabel={t("users.user_select")}
         />
       </div>
     </div>

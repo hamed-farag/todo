@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { FaCheckCircle, FaRegCircle, FaRegTrashAlt } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 import Form from "./Form";
 import View from "./View";
@@ -19,6 +20,8 @@ interface TodoCardProps {
 }
 
 function TodoCard(props: TodoCardProps) {
+  const { t } = useTranslation();
+
   const { data, onUpdate, onDelete, onCreate, onCancel } = props;
 
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
@@ -78,7 +81,7 @@ function TodoCard(props: TodoCardProps) {
           }}
           onSave={handleSaveClick}
           onCancel={handleCancelUpdates}
-          text={{ save: "Update", cancel: "Cancel", inputPlaceholder: "Write your item!" }}
+          text={{ inputPlaceholder: t("home.write_todo") }}
         />
       );
     }

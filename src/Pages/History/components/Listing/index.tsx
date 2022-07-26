@@ -1,4 +1,5 @@
 import { FaList } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 import Paginator from "@components/UI/Paginator";
 import Empty from "@components/UI/Empty";
@@ -23,6 +24,8 @@ interface HistoryListingProps {
 }
 
 function HistoryListing(props: HistoryListingProps) {
+  const { t } = useTranslation();
+
   const { isLoading, historyItems, totalCount, pageSize, actions } = props;
   const { getCurrentPage } = actions;
 
@@ -46,7 +49,7 @@ function HistoryListing(props: HistoryListingProps) {
     if (!isLoading && historyItems.length === 0) {
       return (
         <div className="wk-history-list__empty">
-          <Empty icon={<FaList size="80" color={colors.iconColor} />} title="No History!" />
+          <Empty icon={<FaList size="80" color={colors.iconColor} />} title={t("history.empty_history")} />
         </div>
       );
     }

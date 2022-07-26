@@ -1371,6 +1371,12 @@
       "title": "zxczxc",
       "completed": false,
       "userId": 1
+    },
+    {
+      "id": 893636995,
+      "title": "cg",
+      "completed": false,
+      "userId": 2
     }
   ],
   "history": [
@@ -1676,6 +1682,19 @@
       "createAt": "2022-07-26T19:07:18.845Z",
       "method": "delete",
       "url": "/todos/484693061"
+    },
+    {
+      "id": 447234760,
+      "userId": "2",
+      "data": {
+        "id": 893636995,
+        "title": "cg",
+        "completed": false,
+        "userId": 2
+      },
+      "createAt": "2022-07-26T19:38:41.383Z",
+      "method": "post",
+      "url": "/todos"
     }
   ]
 }

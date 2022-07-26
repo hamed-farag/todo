@@ -1,4 +1,5 @@
 import { FaList } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 import Paginator from "@components/UI/Paginator";
 import Empty from "@components/UI/Empty";
@@ -27,6 +28,8 @@ interface TodoListingProps {
 }
 
 function TodoListing(props: TodoListingProps) {
+  const { t } = useTranslation();
+
   const { isLoading, todoItems, totalCount, pageSize, actions } = props;
   const { getCurrentPage, onItemDelete, onItemUpdate, onItemCreate, onItemCancel } = actions;
 
@@ -67,7 +70,7 @@ function TodoListing(props: TodoListingProps) {
     if (!isLoading && todoItems.length === 0) {
       return (
         <div className="wk-todo-list__empty">
-          <Empty icon={<FaList size="80" color={colors.iconColor} />} title="No todo!" />
+          <Empty icon={<FaList size="80" color={colors.iconColor} />} title={t("home.empty_todo")} />
         </div>
       );
     }

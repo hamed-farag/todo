@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 import UsersDropdown from "@components/Business/Users";
 import HistoryListing from "./components/Listing";
@@ -12,6 +13,7 @@ import env from "@configs/env";
 import "./styles.scss";
 
 function History() {
+  const { t } = useTranslation();
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
   const [history, setHistory] = useState<Array<HistoryItemInterface>>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -25,7 +27,7 @@ function History() {
       setHistory(data.collection);
       setTotalCount(Number(data.totalCount));
     } else {
-      toast.error("Cannot Fetch History for the selected User!");
+      toast.error(t("history.fetch_error_friendly"));
     }
 
     setIsLoading(false);

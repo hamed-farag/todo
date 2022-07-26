@@ -1,5 +1,6 @@
 import { FaPlusCircle } from "react-icons/fa";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 import { NewTodoInterface } from "@interfaces/todo";
 
@@ -13,6 +14,8 @@ interface TodoCreateInterface {
 }
 
 function TodoCreate(props: TodoCreateInterface) {
+  const { t } = useTranslation();
+
   const { userId, onCreate } = props;
 
   return (
@@ -24,7 +27,7 @@ function TodoCreate(props: TodoCreateInterface) {
         if (userId) {
           onCreate({ id: generateRandomNumber(), title: "", completed: false, userId, isEditMode: true, isNew: true });
         } else {
-          toast.warn("Please select user first!");
+          toast.warn(t("home.select_user_want"));
         }
       }}
     />

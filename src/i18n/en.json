@@ -1,0 +1,36 @@
+{
+  "users": {
+    "fetch_error_friendly": "Cannot Fetch Users!",
+    "users_placeholder": "Select a user to show his/her todos!",
+    "user_select": "Select User"
+  },
+  "nav": {
+    "home": "Home",
+    "history": "History"
+  },
+  "history": {
+    "fetch_error_friendly": "Cannot Fetch History for the selected User!",
+    "items": {
+      "update": "",
+      "delete": "",
+      "create": ""
+    },
+    "empty_history": "No History!"
+  },
+  "home": {
+    "fetch_error_friendly": "Cannot Fetch todo for the selected User!",
+    "updated_successfully": "Todo item Updated Successfully!",
+    "update_failed": "Cannot update Todo item!",
+    "deleted_successfully": "Todo item Deleted Successfully!",
+    "delete_failed": "Cannot delete Todo item!",
+    "added_successfully": "Todo item Added Successfully!",
+    "add_failed": "Cannot Add Todo item!",
+    "user_not_selected_error": "User Not selected!",
+    "cannot_add_new_one": "Cannot add A new one, complete the existed first!",
+    "double_edit": "Double-click to edit a todo",
+    "select_user_want": "Please select user first!",
+    "write_title_warn": "Please write a title!",
+    "write_todo": "Write your Todo",
+    "empty_todo": "No Todo!"
+  }
+}

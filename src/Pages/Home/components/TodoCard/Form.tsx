@@ -1,4 +1,5 @@
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 import Textbox from "@components/UI/Textbox";
 
@@ -12,18 +13,18 @@ interface FormProps {
   onSave: () => void;
   onCancel: () => void;
   text: {
-    save: string;
-    cancel: string;
     inputPlaceholder: string;
   };
 }
 
 function Form(props: FormProps) {
+  const { t } = useTranslation();
+
   const { value, onChange, onSave, onCancel, text } = props;
 
   const handleSave = () => {
     if (value.length === 0) {
-      toast.warn("Please write a title!");
+      toast.warn(t("home.write_title_warn"));
     } else {
       onSave();
     }

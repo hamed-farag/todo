@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 import UsersDropdown from "@components/Business/Users";
 import TodoListing from "./components/Listing";
@@ -14,6 +15,7 @@ import env from "@configs/env";
 import "./styles.scss";
 
 function Home() {
+  const { t } = useTranslation();
   const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
   const [todo, setTodo] = useState<Array<TodoInterface>>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -27,7 +29,7 @@ function Home() {
       setTodo(data.collection);
       setTotalCount(Number(data.totalCount));
     } else {
-      toast.error("Cannot Fetch Todo for the selected User!");
+      toast.error(t("home.fetch_error_friendly"));
     }
 
     setIsLoading(false);
@@ -50,10 +52,10 @@ function Home() {
 
     if (data) {
       setTodo(data);
-      toast.success("Todo item Updated Successfully!");
+      toast.success(t("home.updated_successfully"));
       return true;
     } else {
-      toast.error("Cannot update Todo item!");
+      toast.error(t("home.update_failed"));
       return false;
     }
   };
@@ -64,10 +66,10 @@ function Home() {
     if (data) {
       setTodo(data);
       // setTotalCount((prevValue) => prevValue - 1);
-      toast.success("Todo item Deleted Successfully!");
+      toast.success(t("home.deleted_successfully"));
       return true;
     } else {
-      toast.error("Cannot delete Todo item!");
+      toast.error(t("home.delete_failed"));
       return false;
     }
   };
@@ -78,14 +80,14 @@ function Home() {
       if (data) {
         setTodo(data);
         // setTotalCount((prevValue) => prevValue + 1);
-        toast.success("Todo item Added Successfully!");
+        toast.success(t("home.added_successfully"));
         return true;
       } else {
-        toast.error("Cannot Add Todo item!");
+        toast.error(t("home.add_failed"));
         return false;
       }
     } else {
-      toast.error("User Not selected!");
+      toast.error(t("home.user_not_selected_error"));
       return false;
     }
   };
@@ -125,13 +127,13 @@ function Home() {
             if (isNewItemExist === -1) {
               setTodo([item, ...todo]);
             } else {
-              toast.warn("Cannot add A new one!");
+              toast.warn(t("home.cannot_add_new_one"));
             }
           }}
         />
       </div>
       <div className="wk-home-page__footer">
-        <small>Double-click to edit a todo</small>
+        <small>{t("home.double_edit")}</small>
       </div>
     </div>
   );
