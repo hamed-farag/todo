@@ -234,21 +234,15 @@
   "todos": [
     {
       "userId": 1,
-      "id": 1,
-      "title": "delectus aut autem",
-      "completed": false
-    },
-    {
-      "userId": 1,
       "id": 2,
       "title": "quis ut nam facilis et officia qui",
-      "completed": false
+      "completed": true
     },
     {
       "userId": 1,
       "id": 3,
-      "title": "fugiat veniam minus",
-      "completed": false
+      "title": "Edit Todosdfsdf",
+      "completed": true
     },
     {
       "userId": 1,
@@ -1431,7 +1425,86 @@
       "id": 200,
       "title": "ipsam aperiam voluptates qui",
       "completed": false
+    },
+    {
+      "id": 52183209,
+      "title": "New todo item",
+      "completed": false,
+      "userId": 1
     }
   ],
-  "history": []
+  "history": [
+    {
+      "id": 610706775,
+      "userId": "1",
+      "data": {
+        "id": 52183209,
+        "title": "New todo item",
+        "completed": false,
+        "userId": 1
+      },
+      "createAt": "2022-07-26T15:42:51.656Z",
+      "method": "post",
+      "url": "/todos"
+    },
+    {
+      "id": 925853322,
+      "userId": "1",
+      "createAt": "2022-07-26T15:42:53.775Z",
+      "method": "delete",
+      "url": "/todos/1"
+    },
+    {
+      "id": 789657835,
+      "userId": "1",
+      "data": {
+        "userId": 1,
+        "id": 3,
+        "title": "Edit Todo",
+        "completed": false
+      },
+      "createAt": "2022-07-26T15:43:03.802Z",
+      "method": "put",
+      "url": "/todos/3"
+    },
+    {
+      "id": 308420140,
+      "userId": "1",
+      "data": {
+        "userId": 1,
+        "id": 3,
+        "title": "Edit Todo",
+        "completed": true
+      },
+      "createAt": "2022-07-26T16:07:26.845Z",
+      "method": "put",
+      "url": "/todos/3"
+    },
+    {
+      "id": 332733310,
+      "userId": "1",
+      "data": {
+        "userId": 1,
+        "id": 3,
+        "title": "Edit Todosdfsdf",
+        "completed": true
+      },
+      "createAt": "2022-07-26T16:07:36.428Z",
+      "method": "put",
+      "url": "/todos/3"
+    },
+    {
+      "id": 799719832,
+      "userId": "1",
+      "data": {
+        "userId": 1,
+        "id": 2,
+        "title": "quis ut nam facilis et officia qui",
+        "completed": true
+      },
+      "createAt": "2022-07-26T16:44:23.299Z",
+      "method": "put",
+      "url": "/todos/2"
+    }
+  ]
 }

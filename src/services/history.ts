@@ -3,6 +3,7 @@ import asyncer from "@helpers/http/asyncer";
 import logger from "@helpers/logger";
 
 import { generateRandomNumber } from "@utils/number";
+import { getCurrentUTCTime } from "@utils/date";
 
 import env from "@configs/env";
 import servicesUrls from "@configs/servicesUrl";
@@ -25,7 +26,7 @@ class Services {
         id: itemId,
         userId: userId,
         data: item,
-        createAt: new Date().toISOString(),
+        createAt: getCurrentUTCTime(),
         method,
         url,
       };

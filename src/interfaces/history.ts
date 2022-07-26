@@ -1,6 +1,7 @@
 export default interface HistoryItemInterface {
   id: number;
-  data: any;
+  userId: string;
+  data?: any;
   createAt: string;
   method?: string;
   url?: string;
