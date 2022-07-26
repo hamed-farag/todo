@@ -2,9 +2,9 @@ import HistoryItemInterface from "@interfaces/history";
 import { getRelativeTime } from "@utils/date";
 
 const methodType = {
-  update: "put",
+  put: "put",
   delete: "delete",
-  create: "post",
+  post: "post",
 };
 
 interface HistoryItemReturnItem {
@@ -15,13 +15,13 @@ interface HistoryItemReturnItem {
 
 function constructMessage(userId: string, itemId: number, method?: string) {
   switch (method) {
-    case methodType.create:
+    case methodType.post:
       return `${userId} created TODO#${itemId}`;
 
     case methodType.delete:
       return `${userId} deleted TODO#${itemId}`;
 
-    case methodType.update:
+    case methodType.put:
       return `${userId} updated TODO#${itemId}`;
 
     default:

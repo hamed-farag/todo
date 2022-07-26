@@ -1,3 +1,5 @@
+import classNames from "classnames";
+
 import HistoryItemInterface from "@interfaces/history";
 
 import { transformHistoryItem } from "./mapper";
@@ -11,11 +13,14 @@ interface HistoryCardProps {
 function HistoryCard(props: HistoryCardProps) {
   const { data } = props;
 
-  const d = transformHistoryItem(data);
+  const transformedItem = transformHistoryItem(data);
+
+  const className = classNames("wk-history-card", { [`wk-history-card--${transformedItem.actionType}`]: transformedItem.actionType });
+
   return (
-    <div>
-      <span>{d.message}</span>
-      <span>{d.relativeTime}</span>
+    <div className={className}>
+      <span>{transformedItem.message}</span>
+      <span>{transformedItem.relativeTime}</span>
     </div>
   );
 }
