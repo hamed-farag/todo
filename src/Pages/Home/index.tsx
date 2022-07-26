@@ -63,6 +63,7 @@ function Home() {
 
     if (data) {
       setTodo(data);
+      // setTotalCount((prevValue) => prevValue - 1);
       toast.success("Todo item Deleted Successfully!");
       return true;
     } else {
@@ -76,6 +77,7 @@ function Home() {
       const [data, _] = await createTodoItem(selectedUserId, newItem, todo);
       if (data) {
         setTodo(data);
+        // setTotalCount((prevValue) => prevValue + 1);
         toast.success("Todo item Added Successfully!");
         return true;
       } else {
@@ -119,7 +121,12 @@ function Home() {
         <Create
           userId={Number(selectedUserId)}
           onCreate={(item) => {
-            setTodo([item, ...todo]);
+            const isNewItemExist = todo.findIndex((itm) => itm.title === "");
+            if (isNewItemExist === -1) {
+              setTodo([item, ...todo]);
+            } else {
+              toast.warn("Cannot add A new one!");
+            }
           }}
         />
       </div>

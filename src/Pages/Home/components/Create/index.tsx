@@ -1,4 +1,5 @@
 import { FaPlusCircle } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 import { NewTodoInterface } from "@interfaces/todo";
 
@@ -20,9 +21,12 @@ function TodoCreate(props: TodoCreateInterface) {
       size="60"
       color={colors.iconColor}
       onClick={() => {
-        onCreate({ id: generateRandomNumber(), title: "", completed: false, userId, isEditMode: true, isNew: true });
+        if (userId) {
+          onCreate({ id: generateRandomNumber(), title: "", completed: false, userId, isEditMode: true, isNew: true });
+        } else {
+          toast.warn("Please select user first!");
+        }
       }}
-      display={userId}
     />
   );
 }
