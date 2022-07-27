@@ -4,8 +4,10 @@ A simple todo app from Admin perspective. Admin can add, delete and update the t
 
 ## Screenshots
 
-![hello](screenshots/sc-1.png)
-![hello](screenshots/sc-2.png)
+<p align="center">
+  <img src="./screenshots/sc-1.png" width="270" alt="Home">
+  <img src="./screenshots/sc-2.png" width="270" alt="Home">
+</p>
 
 ## Technology Stack
 
@@ -51,6 +53,9 @@ The `.env` file contains a key called `BASE_URL`, to run the project locally you
 2. Clone the source code from `https://github.com/hamed-farag/todo.git`
 3. In your terminal, navigate to the project directory and execute `npm install`
 4. After the previous step, execute `npm run api` to run json-server for fake APIs.
+
+   4.1. Note: (APIs delayed by 500 ms, you can change it by updating delay value in `api` script at package.json)
+
 5. In a new terminal instance, run `npm run start` to run the project locally.
 6. Visit [http://localhost:3000](http://localhost:3000)
 
