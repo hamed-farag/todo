@@ -22,7 +22,7 @@ function TodoCreate(props: TodoCreateInterface) {
     <FaPlusCircle
       cursor={"pointer"}
       size="60"
-      color={colors.iconColor}
+      color={colors.primeColor}
       onClick={() => {
         if (userId) {
           onCreate({ id: generateRandomNumber(), title: "", completed: false, userId, isEditMode: true, isNew: true });
