@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet";
 
 import UsersDropdown from "@components/Business/Users";
 import HistoryListing from "./components/Listing";
@@ -47,6 +48,9 @@ function History() {
 
   return (
     <div className="wk-history-page">
+      <Helmet>
+        <title>{t("history.page_title")}</title>
+      </Helmet>
       <div className="wk-history-page__users">
         <UsersDropdown onChange={(userId) => setSelectedUserId(userId)} />
       </div>

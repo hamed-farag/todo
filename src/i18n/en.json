@@ -9,6 +9,7 @@
     "history": "History"
   },
   "history": {
+    "page_title": "Todo | History",
     "fetch_error_friendly": "Cannot Fetch History for the selected User!",
     "items": {
       "update": "",
@@ -18,6 +19,7 @@
     "empty_history": "No History!"
   },
   "home": {
+    "page_title": "Todo | Home",
     "fetch_error_friendly": "Cannot Fetch todo for the selected User!",
     "updated_successfully": "Todo item Updated Successfully!",
     "update_failed": "Cannot update Todo item!",

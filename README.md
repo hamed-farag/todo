@@ -9,7 +9,58 @@ A simple todo app from Admin perspective. Admin can add, delete and update the t
   <img src="./screenshots/sc-2.png" width="270" alt="Home">
 </p>
 
-## File Structure
+## Technology Stack
+
+- **ReactJS** Project built from scratch (No CRA)
+- **TypeScript**
+- **Json-Server** for Fake APIs
+- **i18next** for localization
+- **Jest** & **React Testing Library**
+- **Storybook** for Components Documentation
+- **Sass** for styling
+
+### Used Packages
+
+- Axios
+- classnames
+- date-fns
+- immer
+- react-toastify
+- yup
+- react-icons
+- react-helmet
+
+## Environment Setup
+
+Clone `.env.example` and make two copies, one of them rename it to `.env` and the other one to `.env.production`.
+
+The `.env` file contains a key called `BASE_URL`, to run the project locally you should update this key with this value `"http://localhost:2022/api/"`
+
+## Development
+
+### Recommended Extensions (For VSCode Developers)
+
+1.  [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+2.  [Jest Runner](https://marketplace.visualstudio.com/items?itemName=firsttris.vscode-jest-runner)
+3.  [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+4.  [EditorConfig for VS Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
+5.  [PostCSS Language Support](https://marketplace.visualstudio.com/items?itemName=csstools.postcss)
+6.  [DotENV](https://marketplace.visualstudio.com/items?itemName=mikestead.dotenv)
+
+### Main Project
+
+1. NodeJS version is `16.14.x`
+2. Clone the source code from `https://github.com/hamed-farag/todo.git`
+3. In your terminal, navigate to the project directory and execute `npm install`
+4. After the previous step, execute `npm run api` to run json-server for fake APIs.
+5. In a new terminal instance, run `npm run start` to run the project locally.
+6. Visit [http://localhost:3000](http://localhost:3000)
+
+### Documentation (Storybook)
+
+1. Run `npm run docs` and visit [http://localhost:6006/](http://localhost:6006)
+
+### File Structure
 
 ```
 .
@@ -53,56 +104,6 @@ A simple todo app from Admin perspective. Admin can add, delete and update the t
     ├── App.tsx
     ├── index.tsx
 ```
-
-## Technology Stack
-
-- **ReactJS** Project built from scratch (No CRA)
-- **TypeScript**
-- **Json-Server** for Fake APIs
-- **i18next** for localization
-- **Jest** & **React Testing Library**
-- **Storybook** for Components Documentation
-- **Sass** for styling
-
-### Used Packages
-
-- Axios
-- classnames
-- date-fns
-- immer
-- react-toastify
-- yup
-- react-icons
-
-## Environment Setup
-
-Clone `.env.example` and make two copies, one of them rename it to `.env` and the other one to `.env.production`.
-
-The `.env` file contains a key called `BASE_URL`, to run the project locally you should update this key with this value `"http://localhost:2022/api/"`
-
-## Development
-
-### Recommended Extensions (For VSCode Developers)
-
-1.  [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
-2.  [Jest Runner](https://marketplace.visualstudio.com/items?itemName=firsttris.vscode-jest-runner)
-3.  [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
-4.  [EditorConfig for VS Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
-5.  [PostCSS Language Support](https://marketplace.visualstudio.com/items?itemName=csstools.postcss)
-6.  [DotENV](https://marketplace.visualstudio.com/items?itemName=mikestead.dotenv)
-
-### Main Project
-
-1. NodeJS version is `16.14.x`
-2. Clone the source code from `https://github.com/hamed-farag/todo.git`
-3. In your terminal, navigate to the project directory and execute `npm install`
-4. After the previous step, execute `npm run api` to run json-server for fake APIs.
-5. In a new terminal instance, run `npm run start` to run the project locally.
-6. Visit [http://localhost:3000](http://localhost:3000)
-
-### Documentation (Storybook)
-
-1. Run `npm run docs` and visit [http://localhost:6006/](http://localhost:6006)
 
 ## Endpoints
 
