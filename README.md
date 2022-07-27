@@ -4,8 +4,8 @@ A simple todo app from Admin perspective. Admin can add, delete and update the t
 
 ## Screenshots
 
-![hello](./screenshots/sc-1.png)
-![hello](./screenshots/sc-2.png)
+![hello](screenshots/sc-1.png)
+![hello](screenshots/sc-2.png)
 
 ## Technology Stack
 
