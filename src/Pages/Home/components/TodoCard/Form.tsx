@@ -1,11 +1,14 @@
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import * as yup from "yup";
 
 import Textbox from "@components/UI/Textbox";
 
 import { FaSave, FaTimesCircle } from "react-icons/fa";
 
 import colors from "@configs/colors";
+
+let todoTitleSchema = yup.string().required();
 
 interface FormProps {
   value: string;
@@ -22,11 +25,13 @@ function Form(props: FormProps) {
 
   const { value, onChange, onSave, onCancel, text } = props;
 
-  const handleSave = () => {
-    if (value.length === 0) {
-      toast.warn(t("home.write_title_warn"));
-    } else {
+  const handleSave = async () => {
+    const isValid = await todoTitleSchema.isValid(value.trim());
+
+    if (isValid) {
       onSave();
+    } else {
+      toast.warn(t("home.write_title_warn"));
     }
   };
 
