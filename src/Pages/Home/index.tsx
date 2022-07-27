@@ -10,6 +10,7 @@ import Create from "./components/Create";
 import { getTodoByUserId, deleteTodoItemById, updateTodoItemById, createTodoItem, removeTempTodoItem } from "./actions";
 
 import TodoInterface, { TodoUpdatedProps } from "@interfaces/todo";
+import { UserMiniInterface } from "@interfaces/users";
 
 import env from "@configs/env";
 
@@ -17,14 +18,14 @@ import "./styles.scss";
 
 function Home() {
   const { t } = useTranslation();
-  const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+  const [selectedUser, setSelectedUser] = useState<UserMiniInterface | null>(null);
   const [todo, setTodo] = useState<Array<TodoInterface>>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [totalCount, setTotalCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const getTodoData = async (userId: string, pageNumber: number) => {
-    const [data, _] = await getTodoByUserId(userId, pageNumber, env.pageSize);
+  const getTodoData = async (user: UserMiniInterface, pageNumber: number) => {
+    const [data, _] = await getTodoByUserId(user.id.toString(), pageNumber, env.pageSize);
 
     if (data) {
       setTodo(data.collection);
@@ -37,47 +38,57 @@ function Home() {
   };
 
   useEffect(() => {
-    if (selectedUserId) {
+    if (selectedUser) {
       setIsLoading(true);
-      getTodoData(selectedUserId, currentPage);
+      getTodoData(selectedUser, currentPage);
     } else {
       // reset
       setTodo([]);
       setTotalCount(0);
       setCurrentPage(1);
     }
-  }, [selectedUserId, currentPage]);
+  }, [selectedUser, currentPage]);
 
   const handleUpdateTodoItem = async (item: TodoUpdatedProps) => {
-    const [data, _] = await updateTodoItemById(item, selectedUserId ?? "", todo);
+    if (selectedUser) {
+      const [data, _] = await updateTodoItemById(item, selectedUser, todo);
 
-    if (data) {
-      setTodo(data);
-      toast.success(t("home.updated_successfully"));
-      return true;
+      if (data) {
+        setTodo(data);
+        toast.success(t("home.updated_successfully"));
+        return true;
+      } else {
+        toast.error(t("home.update_failed"));
+        return false;
+      }
     } else {
-      toast.error(t("home.update_failed"));
+      toast.error(t("home.user_not_selected_error"));
       return false;
     }
   };
 
   const handleDeleteTodoItem = async (id: number) => {
-    const [data, _] = await deleteTodoItemById(id, selectedUserId ?? "", todo);
+    if (selectedUser) {
+      const [data, _] = await deleteTodoItemById(id, selectedUser, todo);
 
-    if (data) {
-      setTodo(data);
-      // setTotalCount((prevValue) => prevValue - 1);
-      toast.success(t("home.deleted_successfully"));
-      return true;
+      if (data) {
+        setTodo(data);
+        // setTotalCount((prevValue) => prevValue - 1);
+        toast.success(t("home.deleted_successfully"));
+        return true;
+      } else {
+        toast.error(t("home.delete_failed"));
+        return false;
+      }
     } else {
-      toast.error(t("home.delete_failed"));
+      toast.error(t("home.user_not_selected_error"));
       return false;
     }
   };
 
   const handleCreateTodoItem = async (newItem: TodoInterface) => {
-    if (selectedUserId) {
-      const [data, _] = await createTodoItem(selectedUserId, newItem, todo);
+    if (selectedUser) {
+      const [data, _] = await createTodoItem(selectedUser, newItem, todo);
       if (data) {
         setTodo(data);
         // setTotalCount((prevValue) => prevValue + 1);
@@ -99,7 +110,7 @@ function Home() {
         <title>{t("home.page_title")}</title>
       </Helmet>
       <div className="wk-home-page__users">
-        <UsersDropdown onChange={(userId) => setSelectedUserId(userId)} />
+        <UsersDropdown onChange={(miniUser) => setSelectedUser(miniUser)} />
       </div>
       <div className="wk-home-page__content">
         <TodoListing
@@ -125,7 +136,7 @@ function Home() {
       </div>
       <div className="wk-home-page__create">
         <Create
-          userId={Number(selectedUserId)}
+          userId={Number(selectedUser?.id)}
           onCreate={(item) => {
             const isNewItemExist = todo.findIndex((itm) => itm.title === "");
             if (isNewItemExist === -1) {

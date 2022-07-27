@@ -7,14 +7,14 @@ import Label from "@components/UI/Label";
 
 import userService from "@services/users";
 
-import UserInterface from "@interfaces/users";
+import UserInterface, { UserMiniInterface } from "@interfaces/users";
 
 import logger from "@helpers/logger";
 
 import "./styles.scss";
 
 interface UsersProps {
-  onChange: (value: string | null) => void;
+  onChange: (value: UserMiniInterface | null) => void;
 }
 
 function Users(props: UsersProps) {
@@ -23,7 +23,7 @@ function Users(props: UsersProps) {
 
   const [users, setUsers] = useState<Array<UserInterface>>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedUser, setSelectedUser] = useState<string | null>("");
+  const [selectedUser, setSelectedUser] = useState<UserMiniInterface | null>(null);
 
   const getUsersData = async () => {
     const [response, error] = await userService.getUsers();
@@ -43,7 +43,7 @@ function Users(props: UsersProps) {
   }, []);
 
   useEffect(() => {
-    if (selectedUser !== "") {
+    if (selectedUser) {
       onChange(selectedUser);
     }
   }, [selectedUser]);
@@ -51,6 +51,14 @@ function Users(props: UsersProps) {
   const usersExtraction = users.map((user: UserInterface) => {
     return { value: user.id.toString(), label: user.name };
   });
+
+  const getMiniUser = (id: string): UserMiniInterface => {
+    const user = users.find((user) => user.id === Number(id));
+    return {
+      id: user?.id ?? 0,
+      name: user?.name ?? "",
+    };
+  };
 
   return (
     <div className="wk-users-dropdown">
@@ -60,8 +68,8 @@ function Users(props: UsersProps) {
       <div className="wk-users-dropdown__collection">
         <Dropdown
           loading={isLoading}
-          onChange={(value) => setSelectedUser(value)}
-          selectedValue={selectedUser}
+          onChange={(value) => setSelectedUser(getMiniUser(value ?? "0"))}
+          selectedValue={selectedUser?.id.toString() ?? null}
           items={usersExtraction}
           defaultLabel={t("users.user_select")}
         />

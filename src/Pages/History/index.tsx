@@ -9,20 +9,21 @@ import HistoryListing from "./components/Listing";
 import { getHistoryByUserId } from "./actions";
 
 import HistoryItemInterface from "@interfaces/history";
+import { UserMiniInterface } from "@interfaces/users";
 import env from "@configs/env";
 
 import "./styles.scss";
 
 function History() {
   const { t } = useTranslation();
-  const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
+  const [selectedUser, setSelectedUser] = useState<UserMiniInterface | null>(null);
   const [history, setHistory] = useState<Array<HistoryItemInterface>>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [totalCount, setTotalCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const getHistoryData = async (userId: string, pageNumber: number) => {
-    const [data, _] = await getHistoryByUserId(userId, pageNumber, env.pageSize);
+  const getHistoryData = async (user: UserMiniInterface, pageNumber: number) => {
+    const [data, _] = await getHistoryByUserId(user.id.toString(), pageNumber, env.pageSize);
 
     if (data) {
       setHistory(data.collection);
@@ -35,16 +36,16 @@ function History() {
   };
 
   useEffect(() => {
-    if (selectedUserId) {
+    if (selectedUser) {
       setIsLoading(true);
-      getHistoryData(selectedUserId, currentPage);
+      getHistoryData(selectedUser, currentPage);
     } else {
       // reset
       setHistory([]);
       setTotalCount(0);
       setCurrentPage(1);
     }
-  }, [selectedUserId, currentPage]);
+  }, [selectedUser, currentPage]);
 
   return (
     <div className="wk-history-page">
@@ -52,7 +53,7 @@ function History() {
         <title>{t("history.page_title")}</title>
       </Helmet>
       <div className="wk-history-page__users">
-        <UsersDropdown onChange={(userId) => setSelectedUserId(userId)} />
+        <UsersDropdown onChange={(value) => setSelectedUser(value)} />
       </div>
       <div className="wk-history-page__content">
         <HistoryListing

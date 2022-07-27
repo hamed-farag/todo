@@ -9,6 +9,9 @@ import env from "@configs/env";
 import servicesUrls from "@configs/servicesUrl";
 
 import HistoryItemInterface from "@interfaces/history";
+import TodoInterface from "@interfaces/todo";
+import { UserMiniInterface } from "@interfaces/users";
+
 import { IAPIResponse } from "@interfaces/http";
 
 class Services {
@@ -18,17 +21,15 @@ class Services {
     this.requester = new Requester({ baseUrl: env.baseUrl });
   }
 
-  public createHistoryLog(userId: string, url?: string, item?: any, method?: string) {
-    const itemId = generateRandomNumber();
-
+  public createHistoryLog(user: UserMiniInterface, method: string, oldItem?: TodoInterface, newItem?: TodoInterface) {
     try {
-      const dataItem = {
-        id: itemId,
-        userId: userId,
-        data: item,
-        createAt: getCurrentUTCTime(),
+      const dataItem: HistoryItemInterface = {
+        id: generateRandomNumber(),
+        user,
+        oldItem,
+        newItem,
         method,
-        url,
+        createAt: getCurrentUTCTime(),
       };
       return asyncer(this.requester.post<HistoryItemInterface, HistoryItemInterface>(servicesUrls.addHistoryItem, dataItem));
     } catch (error) {

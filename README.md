@@ -64,6 +64,7 @@ The `.env` file contains a key called `BASE_URL`, to run the project locally you
 
 ```
 .
+├── __test__                            # all unit test
 ├── .storybook                          # contains all storybook needed setup files
 ├── .vscode                             # recommended extensions and default workspace setup
 ├── data                                # db.json and routes.json files that used by json-server
@@ -142,3 +143,9 @@ Check [SPECIFICATIONS.md](./SPECIFICATIONS.md) file
 ### Generate Coverage Report
 
 `npm run coverage`
+
+## Todo
+
+1. Write more unit tests.
+2. Dark Theme
+3. Support Arabic & RTL

@@ -1,4 +1,3 @@
-import { AxiosResponse, AxiosRequestConfig } from "axios";
+import { AxiosResponse } from "axios";
 
 export type IAPIResponse = AxiosResponse;
-export type IConfig = AxiosRequestConfig;

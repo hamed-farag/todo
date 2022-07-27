@@ -21,3 +21,8 @@ export default interface UserInterface {
     bs: string;
   };
 }
+
+export interface UserMiniInterface {
+  id: number;
+  name: string;
+}

@@ -1,5 +1,10 @@
 import HistoryItemInterface from "@interfaces/history";
+import { UserMiniInterface } from "@interfaces/users";
+import TodoInterface, { todoEnum } from "@interfaces/todo";
 import { getRelativeTime } from "@utils/date";
+import { getDifferenceKey } from "@utils/object";
+
+import i18n from "@i18n/i18n";
 
 const methodType = {
   put: "put",
@@ -13,43 +18,48 @@ interface HistoryItemReturnItem {
   actionType: keyof typeof methodType;
 }
 
-function constructMessage(userId: string, itemId: number, method?: string) {
+function constructMessage(user: UserMiniInterface, method: string, originalItem?: TodoInterface, updatedItem?: TodoInterface) {
   switch (method) {
-    case methodType.post:
-      return `${userId} created TODO#${itemId}`;
+    case methodType.post: {
+      return i18n.t("history.card.create", { username: user.name, todoId: updatedItem?.id });
+    }
 
-    case methodType.delete:
-      return `${userId} deleted TODO#${itemId}`;
+    case methodType.delete: {
+      return i18n.t("history.card.delete", { username: user.name, todoId: originalItem?.id });
+    }
 
-    case methodType.put:
-      return `${userId} updated TODO#${itemId}`;
+    case methodType.put: {
+      // get the difference between originalItem, updatedItem
+      const differentKey = getDifferenceKey<TodoInterface | {}>(originalItem ?? {}, updatedItem ?? {});
 
-    default:
+      if (differentKey === "completed") {
+        if (updatedItem?.completed === true) {
+          // done
+          return i18n.t("history.card.update_completed_done", { username: user.name, todoId: originalItem?.id });
+        } else {
+          return i18n.t("history.card.update_completed_active", { username: user.name, todoId: originalItem?.id });
+        }
+      }
+
+      if (differentKey === "title") {
+        return i18n.t("history.card.update_title", { username: user.name, todoId: originalItem?.id, title: updatedItem?.title });
+      }
+
+      return i18n.t("history.card.update_normal", { username: user.name, todoId: originalItem?.id });
+    }
+
+    default: {
       return "N/A";
+    }
   }
 }
 
-export function transformHistoryItem(item: HistoryItemInterface): HistoryItemReturnItem {
-  let message: string = "";
-  let itemId: number = 0;
-
-  // we have to extract the todo number from one of two places
-  // item.data.id (work fine with post and put)
-  // or item.url (work with delete)
-  const urlAsArray = item.url?.split("/");
-  const todoItemId = (urlAsArray && urlAsArray[urlAsArray.length - 1]) || "NA";
-
-  if (isNaN(Number(todoItemId))) {
-    itemId = item.data && item.data.id;
-  } else {
-    itemId = Number(todoItemId);
-  }
-
-  message = constructMessage(item.userId, itemId, item.method);
+export function transformHistoryItem(historyItem: HistoryItemInterface): HistoryItemReturnItem {
+  let message = constructMessage(historyItem.user, historyItem.method, historyItem.oldItem, historyItem.newItem);
 
   return {
-    relativeTime: getRelativeTime(item.createAt),
+    relativeTime: getRelativeTime(historyItem.createAt),
     message: message,
-    actionType: item.method as keyof typeof methodType,
+    actionType: historyItem.method as keyof typeof methodType,
   };
 }

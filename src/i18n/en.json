@@ -16,7 +16,15 @@
       "delete": "",
       "create": ""
     },
-    "empty_history": "No History!"
+    "empty_history": "No History!",
+    "card": {
+      "update_title": "{{username}} changed TODO#{{todoId}} to {{title}}",
+      "update_completed_done": "{{username}} changed TODO#{{todoId}} to done",
+      "update_completed_active": "{{username}} changed TODO#{{todoId}} to active",
+      "update_normal": "{{username}} updated TODO#{{todoId}}",
+      "create": "{{username}} created TODO#{{todoId}}",
+      "delete": "{{username}} deleted TODO#{{todoId}}"
+    }
   },
   "home": {
     "page_title": "Todo | Home",

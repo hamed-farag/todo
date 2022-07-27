@@ -3,6 +3,7 @@ import produce from "immer";
 import todoService from "@services/todo";
 
 import TodoInterface, { TodoUpdatedProps, NewTodoInterface } from "@interfaces/todo";
+import { UserMiniInterface } from "@interfaces/users";
 
 import logger from "@helpers/logger";
 
@@ -28,10 +29,11 @@ export async function getTodoByUserId(
 
 export async function deleteTodoItemById(
   id: number,
-  userId: string,
+  user: UserMiniInterface,
   state: Array<TodoInterface>
 ): Promise<[response: Array<TodoInterface> | undefined, error: Error | undefined]> {
-  const [response, error] = await todoService.deleteTodoItemById(id.toString(), userId);
+  const objectToBeDeleted = state.find((item) => item.id === id);
+  const [response, error] = await todoService.deleteTodoItemById(id.toString(), user, objectToBeDeleted ?? undefined);
 
   if (response) {
     const newState = produce(state, (draftState) => {
@@ -50,7 +52,7 @@ export async function deleteTodoItemById(
 
 export async function updateTodoItemById(
   item: TodoUpdatedProps,
-  userId: string,
+  user: UserMiniInterface,
   state: Array<TodoInterface>
 ): Promise<[response: Array<TodoInterface> | undefined, error: Error | undefined]> {
   const itemToBeUpdated = state.find((itm) => itm.id === item.id);
@@ -71,7 +73,7 @@ export async function updateTodoItemById(
     clonedItemToBeUpdated.title = item.value;
   }
 
-  const [response, error] = await todoService.updateTodoItemById(clonedItemToBeUpdated, userId);
+  const [response, error] = await todoService.updateTodoItemById(clonedItemToBeUpdated, itemToBeUpdated, user);
 
   if (response) {
     const newState = produce(state, (draftState) => {
@@ -88,16 +90,16 @@ export async function updateTodoItemById(
 }
 
 export async function createTodoItem(
-  userId: string,
+  user: UserMiniInterface,
   item: NewTodoInterface,
   state: Array<TodoInterface>
 ): Promise<[response: Array<TodoInterface> | undefined, error: Error | undefined]> {
-  const newTodo = { ...item, userId: Number(userId) };
+  const newTodo = { ...item, userId: Number(user.id) };
   // remove unneeded flags before store it
   delete newTodo.isEditMode;
   delete newTodo.isNew;
 
-  const [response, error] = await todoService.createTodoItemById(newTodo, userId);
+  const [response, error] = await todoService.createTodoItemById(newTodo, user);
   if (response) {
     const newState = produce(state, (draftState) => {
       // update the item with response.data

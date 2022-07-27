@@ -1,7 +1,6 @@
-import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from "axios";
+import axios, { AxiosInstance, AxiosResponse } from "axios";
 
 import ApiConfiguration from "./api-config";
-import { responseInterceptor, requestInterceptor } from "./interceptors";
 
 export type HttpHeaders = {
   [key: string]: string;
@@ -33,17 +32,8 @@ export class Requester implements IRequester {
     });
   }
 
-  constructor(
-    apiConfiguration: ApiConfiguration,
-    handleSuccessResponse?: (response: AxiosResponse) => void,
-    handleSuccessRequest?: (config: AxiosRequestConfig) => void
-  ) {
-    const resInterceptor = responseInterceptor(handleSuccessResponse);
-    const reqInterceptor = requestInterceptor(handleSuccessRequest);
-
+  constructor(apiConfiguration: ApiConfiguration) {
     this.client = this.createAxiosClient(apiConfiguration);
-    this.client.interceptors.response.use(resInterceptor.success, resInterceptor.error);
-    this.client.interceptors.request.use(reqInterceptor.success, reqInterceptor.error);
   }
 
   get<TResponse>(path: string, config?: RequestConfig): Promise<AxiosResponse<TResponse, any>> {
