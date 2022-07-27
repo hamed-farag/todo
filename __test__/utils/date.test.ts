@@ -1,4 +1,4 @@
-import { getCurrentUTCTime, getRelativeTime } from "./";
+import { getCurrentUTCTime, getRelativeTime } from "../../src/utils/date";
 
 describe("utils/date", () => {
   describe("getCurrentUTCTime", () => {

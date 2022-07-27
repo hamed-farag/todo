@@ -1,4 +1,4 @@
-import { generateRandomNumber } from "./";
+import { generateRandomNumber } from "../../src/utils/number";
 
 describe("utils/number", () => {
   it("generateRandomNumber / Number should be defined", () => {
