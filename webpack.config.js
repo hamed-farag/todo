@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
+const CopyPlugin = require("copy-webpack-plugin");
 
 function getCurrentEnv() {
   if (process.env.NODE_ENV === "development") {
@@ -65,6 +66,9 @@ module.exports = {
     }),
     new Dotenv({
       path: getCurrentEnv(),
+    }),
+    new CopyPlugin({
+      patterns: [{ from: "public/assets", to: "assets" }],
     }),
   ],
 };
