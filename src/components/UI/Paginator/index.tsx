@@ -15,29 +15,36 @@ interface PaginatorProps {
 function Paginator(props: PaginatorProps) {
   const { totalCount, pageSize, onChange, disabled } = props;
 
-  const [pages, setSPages] = useState(0);
+  const [pagesCount, setPagesCount] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    setSPages(Math.round(totalCount / pageSize));
-  }, [totalCount]);
+    const pages = Math.ceil(totalCount / pageSize);
+    setPagesCount(pages);
+  }, [totalCount, currentPage]);
 
   useEffect(() => {
     onChange(currentPage);
   }, [currentPage]);
 
   function goToNextPage() {
-    setCurrentPage((page) => page + 1);
+    if (disabled === false && currentPage !== pagesCount) {
+      setCurrentPage((page) => page + 1);
+    }
   }
 
   function goToPreviousPage() {
-    setCurrentPage((page) => page - 1);
+    if (disabled === false && currentPage !== 1) {
+      setCurrentPage((page) => page - 1);
+    }
   }
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function handlePageClick(e: any) {
-    const pageNumber = Number(e.target.textContent);
-    setCurrentPage(pageNumber);
+    if (disabled === false) {
+      const pageNumber = Number(e.target.textContent);
+      setCurrentPage(pageNumber);
+    }
   }
 
   const getPageItems = () => {
@@ -47,14 +54,14 @@ function Paginator(props: PaginatorProps) {
 
   const className = classNames("wk-paginator", { "wk-paginator--disabled": disabled });
   const prevClassName = classNames("wk-paginator__page-item-prev", { "wk-paginator__page-item-prev--disabled": currentPage === 1 });
-  const nextClassName = classNames("wk-paginator__page-item-next", { "wk-paginator__page-item-next--disabled": currentPage === pages });
+  const nextClassName = classNames("wk-paginator__page-item-next", { "wk-paginator__page-item-next--disabled": currentPage === pagesCount });
 
   return (
     <ul className={className}>
       <li
         className={prevClassName}
         onClick={(e) => {
-          disabled === false && currentPage !== 1 && goToPreviousPage();
+          goToPreviousPage();
         }}
       >
         <FaChevronCircleLeft size="30" color={colors.iconColor} />
@@ -70,7 +77,7 @@ function Paginator(props: PaginatorProps) {
             className={className}
             key={item}
             onClick={(e) => {
-              disabled === false && handlePageClick(e);
+              handlePageClick(e);
             }}
           >
             <span>{item}</span>
@@ -80,8 +87,8 @@ function Paginator(props: PaginatorProps) {
 
       <li
         className={nextClassName}
-        onClick={(e) => {
-          disabled === false && currentPage !== pages && goToNextPage();
+        onClick={() => {
+          goToNextPage();
         }}
       >
         <FaChevronCircleRight size="30" color={colors.iconColor} />
